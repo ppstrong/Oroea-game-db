@@ -54,50 +54,108 @@
         ::-webkit-scrollbar-thumb { background: #8d6e63; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--border-brown); }
 
-        #map-container { cursor: grab; transform-origin: center; }
+        #map-container {
+            cursor: grab;
+            transform-origin: center;
+        }
         #map-container:active { cursor: grabbing; }
-        .smooth-transform { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
-        .map-shape-transition { transition: d 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease; }
+        
+        .smooth-transform {
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .map-shape-transition {
+            transition: d 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
+        }
 
         .map-marker {
-            position: absolute; transform: translate(-50%, -50%);
+            position: absolute;
+            transform: translate(-50%, -50%);
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            cursor: pointer; z-index: 10; display: flex; flex-direction: column; align-items: center;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+        
         .map-marker:hover { scale: 1.2; z-index: 20; }
         .map-marker.marker-active { scale: 1.35; z-index: 30; }
 
         .marker-icon {
-            width: 20px; height: 20px; border: 2px solid white;
+            width: 20px;
+            height: 20px;
+            border: 2px solid white;
             box-shadow: 0 2px 5px rgba(0,0,0,0.6), inset 0 -2px 4px rgba(0,0,0,0.25);
             transition: all 0.3s;
         }
+        
         .icon-town { border-radius: 50%; background: #3b82f6; } 
         .icon-wild { transform: rotate(45deg); background: #22c55e; }
         .icon-dungeon { clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background: #ef4444; }
 
         .map-marker:hover .marker-icon { box-shadow: 0 0 10px gold; }
-        .map-marker.marker-active .marker-icon { box-shadow: 0 0 20px 8px rgba(255, 215, 0, 0.8); border-color: #ffeb3b; }
+        .map-marker.marker-active .marker-icon {
+            box-shadow: 0 0 20px 8px rgba(255, 215, 0, 0.8);
+            border-color: #ffeb3b;
+        }
 
         .marker-label {
-            position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(8px);
-            background: #2c1e14; color: #f4e4bc; padding: 3px 8px; border-radius: 4px;
-            font-size: 11px; font-weight: bold; white-space: nowrap; opacity: 0;
-            pointer-events: none; border: 1px solid #c5a059; transition: all 0.3s;
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%) translateY(8px);
+            background: #2c1e14;
+            color: #f4e4bc;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            border: 1px solid #c5a059;
+            transition: all 0.3s;
             box-shadow: 0 4px 6px rgba(0,0,0,0.5);
         }
+        
         .marker-label::after {
-            content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-            border-width: 4px; border-style: solid; border-color: #c5a059 transparent transparent transparent;
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 4px;
+            border-style: solid;
+            border-color: #c5a059 transparent transparent transparent;
         }
-        .map-marker:hover .marker-label, .map-marker.marker-active .marker-label { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        .map-marker:hover .marker-label,
+        .map-marker.marker-active .marker-label {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
 
         .region-btn {
-            background: rgba(244, 228, 188, 0.8); border: 2px solid var(--border-brown); color: var(--border-brown);
-            padding: 0.4rem 1rem; border-radius: 8px; font-weight: bold; font-size: 0.875rem; transition: all 0.2s; backdrop-filter: blur(4px);
+            background: rgba(244, 228, 188, 0.8);
+            border: 2px solid var(--border-brown);
+            color: var(--border-brown);
+            padding: 0.4rem 1rem;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+            backdrop-filter: blur(4px);
         }
-        .region-btn.active { background: var(--border-brown); color: var(--parchment); box-shadow: 0 0 12px rgba(197, 160, 89, 0.8); transform: translateY(-2px); }
-        .region-btn:hover:not(.active) { background: rgba(197, 160, 89, 0.4); }
+        .region-btn.active {
+            background: var(--border-brown);
+            color: var(--parchment);
+            box-shadow: 0 0 12px rgba(197, 160, 89, 0.8);
+            transform: translateY(-2px);
+        }
+        .region-btn:hover:not(.active) {
+            background: rgba(197, 160, 89, 0.4);
+        }
 
         @media (max-width: 768px) {
             body { overflow-y: auto; height: auto; }
@@ -124,7 +182,7 @@
                 <div class="space-y-2 text-[11px] leading-relaxed text-[#4e342e] text-justify">
                     <p><strong>天恩曆320年</strong>，卡桑高地的魔素劇烈紊亂，生成了智慧史詩魔物<span class="text-red-700 font-bold">「渾沌之翼」</span>。牠控制了大部分魔物發動了慘烈的「魔物戰爭」。最終被女英雄<strong class="text-blue-800">莉希妲．維多利亞</strong>與各路夥伴擊敗，封印於焚毀的無盡之路，並於330年建立奧蘭多王國。</p>
                     <p class="border-t border-[#5d4037]/10 pt-1 text-[#8d6e63]">
-                        <strong class="text-[#5d4037]">⚔️ 戰力體系備註：</strong>各城鎮的主要NPC戰鬥人員皆具備<strong class="text-red-700">比肩首領魔物</strong>的戰力。而守護龍「薩爾加羅妲」更具備<strong class="text-purple-700">比肩史詩級魔物</strong>的毀滅性力量。
+                        <strong class="text-[#5d4037]">⚔️ 戰力體系備註：</strong>各城鎮的主要NPC戰鬥人員（除艾莉雅、達芙妮等非戰鬥員）皆具備<strong class="text-red-700">比肩首領魔物</strong>的戰力。而守護龍「薩爾加羅妲」更具備<strong class="text-purple-700">比肩史詩級魔物</strong>的毀滅性力量。
                     </p>
                 </div>
             </div>
@@ -136,7 +194,7 @@
                     <i data-lucide="search" class="absolute left-2.5 top-2 w-4 h-4 opacity-60"></i>
                 </div>
                 <div class="flex items-center gap-2">
-                    <select id="mapCategory" class="flex-1 bg-white/70 border border-[#5d4037] rounded p-1 text-xs font-bold text-[#5d4037] cursor-pointer">
+                    <select id="mapCategory" class="flex-1 bg-white/70 border border-[#5d4037] rounded p-1 text-xs font-bold text-[#5d4037]">
                         <option value="all">全部分類</option>
                         <option value="town">城鎮與村莊 (安全)</option>
                         <option value="wild">野外探索區 (狩獵)</option>
@@ -151,7 +209,7 @@
                 </select>
             </div>
 
-            <!-- 資訊面版 -->
+            <!-- 資訊面版 (動態填入) -->
             <div id="infoBox" class="rpg-card mb-4 hidden animate-in fade-in duration-500 shadow-lg border-[#5d4037] bg-white/70">
                 <h3 id="infoTitle" class="text-xl font-black text-[#3e2723] mb-1 tracking-wide">地點名稱</h3>
                 <p id="infoZone" class="text-[10px] text-[#f4e4bc] mb-2 font-bold uppercase tracking-widest bg-[#5d4037] inline-block px-2 py-0.5 rounded shadow-inner"></p>
@@ -176,37 +234,16 @@
             <!-- 即時環境模擬系統 -->
             <div class="rpg-card mb-4 border-[#c5a059] bg-[#fdfaf2]">
                 <h4 class="font-bold mb-2 flex items-center gap-2 text-sm text-[#5d4037] border-b border-[#5d4037]/20 pb-1">
-                    <i data-lucide="sun-moon" class="w-4 h-4"></i> 動態區域環境監測
+                    <i data-lucide="sun-moon" class="w-4 h-4"></i> 區域環境監測
                 </h4>
-                
-                <!-- 獨立的下拉選單區塊 -->
-                <div class="space-y-2 mb-2 bg-[#5d4037]/5 p-2 rounded border border-[#5d4037]/20">
-                    <div class="flex items-center gap-2">
-                        <label class="text-xs font-bold text-[#5d4037] whitespace-nowrap w-8">時段</label>
-                        <select id="simPeriod" class="flex-1 text-[11px] bg-white border border-[#5d4037] p-1.5 rounded font-bold text-[#3e2723] cursor-pointer shadow-sm">
-                            <option value="auto">🕒 系統時間同步 (自動)</option>
-                            <option value="morning">🌅 早晨 (06:00 - 11:59)</option>
-                            <option value="afternoon">☀️ 下午 (12:00 - 17:59)</option>
-                            <option value="night">🌙 夜晚 (18:00 - 23:59)</option>
-                            <option value="dawn">🌌 凌晨 (00:00 - 05:59)</option>
-                        </select>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <label class="text-xs font-bold text-[#5d4037] whitespace-nowrap w-8">天氣</label>
-                        <select id="simWeather" class="flex-1 text-[11px] bg-white border border-[#5d4037] p-1.5 rounded font-bold text-[#3e2723] cursor-pointer shadow-sm">
-                            <!-- JS 動態填入合法天氣 -->
-                        </select>
-                    </div>
-                </div>
-
                 <div class="text-xs space-y-2 text-[#3e2723]">
                     <div class="flex justify-between items-center bg-[#5d4037] text-[#f4e4bc] px-3 py-1.5 rounded shadow-inner">
                         <span class="font-bold tracking-wider">時間: <span id="dispTime" class="text-[#c5a059] text-sm ml-1">08:00</span></span>
-                        <span><span id="dispPeriodText">早晨</span> | <span id="dispWeatherText">晴朗</span></span>
+                        <span><span id="dispSeason">春季</span> | <span id="dispPeriod">早晨</span> | <span id="dispWeather">晴朗</span></span>
                     </div>
                     <div class="border-t border-[#5d4037]/20 pt-2 mt-2">
                         <p class="font-bold text-[#5d4037] mb-1 flex items-center gap-1">
-                            <i data-lucide="radio" class="w-3 h-3"></i> 當前觀測地：<span id="dispLocation" class="text-blue-800 text-[12px]">歐羅亞大陸全境</span>
+                            <i data-lucide="radio" class="w-3 h-3"></i> 動態回報：<span id="dispLocation" class="text-blue-800 text-[12px]">歐羅亞大陸全境</span>
                         </p>
                         <div class="bg-white/60 p-2 rounded space-y-1.5 border border-[#5d4037]/20 shadow-sm leading-relaxed text-[11px]">
                             <p class="flex items-start gap-1"><i data-lucide="activity" class="w-3.5 h-3.5 text-green-700 shrink-0 mt-0.5"></i><span><span id="dispActivity">各地依照自然規律運作中。</span></span></p>
@@ -230,12 +267,17 @@
         </div>
     </aside>
 
-    <!-- 右側地圖框架 -->
+    <!-- 右側地圖框架 (海洋背景) -->
     <main class="flex-1 relative overflow-hidden ocean-bg map-frame">
-        <div class="absolute top-6 left-6 opacity-30 pointer-events-none z-10"><i data-lucide="compass" class="w-24 h-24 text-[#c5a059]"></i></div>
+        <!-- 復古羅盤裝飾 -->
+        <div class="absolute top-6 left-6 opacity-30 pointer-events-none z-10">
+            <i data-lucide="compass" class="w-24 h-24 text-[#c5a059]"></i>
+        </div>
+
         <div id="map-viewport" class="w-full h-full relative overflow-hidden flex items-center justify-center">
             <div id="map-container">
                 <div id="map-bounds" class="relative w-[1600px] h-[1200px]">
+                    <!-- SVG 島嶼生成器 -->
                     <svg id="map-svg" width="1600" height="1200" class="absolute inset-0 z-0 drop-shadow-2xl overflow-visible">
                         <defs>
                             <pattern id="parchment-pattern" patternUnits="userSpaceOnUse" width="512" height="512">
@@ -247,24 +289,31 @@
                                 <feComposite in="SourceGraphic" in2="blur" operator="over"/>
                             </filter>
                         </defs>
+
                         <g id="svg-group" class="transition-opacity duration-300">
+                            <!-- 淺水邊界層 -->
                             <path id="landmass-outline" class="map-shape-transition" d="" fill="none" stroke="#c5a059" stroke-width="35" stroke-linejoin="round" opacity="0.3" filter="url(#shallow-water)"/>
+                            <!-- 主要島嶼陸地層 -->
                             <path id="landmass" class="map-shape-transition" d="" fill="url(#parchment-pattern)" stroke="#5d4037" stroke-width="8" stroke-linejoin="round"/>
+                            <!-- 浮水印 -->
                             <text id="watermark-line1" x="800" y="600" text-anchor="middle" dominant-baseline="middle" fill="#5d4037" opacity="0.12" font-size="140" font-weight="900" font-style="italic" letter-spacing="30">OROEA</text>
                             <text id="watermark-line2" x="800" y="740" text-anchor="middle" dominant-baseline="middle" fill="#5d4037" opacity="0.12" font-size="70" font-weight="bold" font-style="italic" letter-spacing="50">CONTINENT</text>
                         </g>
                     </svg>
+                    <!-- 圖標層 -->
                     <div id="markers-layer" class="absolute inset-0 z-10"></div>
                 </div>
             </div>
         </div>
         
+        <!-- 圖例 -->
         <div class="absolute top-4 right-4 bg-black/80 text-white p-3 rounded-lg border border-white/20 text-[10px] space-y-2 backdrop-blur-sm z-20 shadow-xl font-bold">
             <div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-blue-500 border border-white shadow-[0_0_5px_#3b82f6]"></div> 城鎮 / 村莊 (安全區)</div>
             <div class="flex items-center gap-2"><div class="w-3 h-3 bg-green-500 border border-white rotate-45 shadow-[0_0_5px_#22c55e]"></div> 野外地帶 (可狩獵)</div>
             <div class="flex items-center gap-2"><div class="w-3 h-3 bg-red-500 border border-white shadow-[0_0_5px_#ef4444]" style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);"></div> 特殊副本 (高危險)</div>
         </div>
 
+        <!-- 地區切換 -->
         <div id="region-selector" class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-30 shadow-2xl bg-black/60 p-2.5 rounded-2xl backdrop-blur-md border border-white/20">
             <button class="region-btn active" data-region="mainland">歐羅亞大陸</button>
             <button class="region-btn" data-region="sali">薩利島</button>
@@ -272,6 +321,7 @@
             <button class="region-btn" data-region="maha">瑪哈島</button>
         </div>
 
+        <!-- 座標監測 -->
         <div class="absolute bottom-4 right-4 space-y-2 z-20 pointer-events-none">
             <div class="bg-black/70 text-[#f4e4bc] p-2 rounded backdrop-blur-md border border-[#c5a059]/40 text-[10px] font-mono">
                 <p>經緯座標: <span id="coords">0, 0</span></p>
@@ -282,72 +332,142 @@
 </div>
 
 <script>
-    // 區域地形 Path
+    // 區域 SVG Path 設定
     const regionConfig = {
-        mainland: { name: '歐羅亞大陸', watermark1: 'OROEA', watermark2: 'CONTINENT', path: 'M 60,60 C 500,-40 1000,120 1400,60 C 1600,150 1500,600 1550,1000 C 1500,1200 1000,1100 600,1150 C 100,1200 50,800 60,600 C 80,300 -50,150 60,60 Z' },
-        sali: { name: '薩利島', watermark1: 'SALI', watermark2: 'ISLAND', path: 'M 700,350 C 850,300 950,350 1000,500 C 1050,650 950,850 850,900 C 750,950 600,800 650,650 C 700,500 550,400 700,350 Z' },
-        shamei: { name: '莎梅群島', watermark1: 'SHAMEI', watermark2: 'ISLANDS', path: 'M 700,150 C 850,100 950,200 850,300 C 750,350 650,250 700,150 Z M 650,380 C 850,320 1000,450 950,650 C 900,800 650,750 600,550 C 550,400 650,380 650,380 Z M 720,800 C 850,750 950,850 900,980 C 800,1100 650,1000 720,800 Z' },
-        maha: { name: '瑪哈島', watermark1: 'MAHA', watermark2: 'ISLAND', path: 'M 450,100 C 750,50 850,200 750,350 C 700,450 800,450 950,450 C 1150,450 1200,550 1150,750 C 1050,900 750,850 550,800 C 400,750 400,600 450,500 C 500,400 350,200 450,100 Z' }
+        mainland: { 
+            name: '歐羅亞大陸', watermark1: 'OROEA', watermark2: 'CONTINENT',
+            path: 'M 60,60 C 500,-40 1000,120 1400,60 C 1600,150 1500,600 1550,1000 C 1500,1200 1000,1100 600,1150 C 100,1200 50,800 60,600 C 80,300 -50,150 60,60 Z'
+        },
+        sali: { 
+            name: '薩利島', watermark1: 'SALI', watermark2: 'ISLAND',
+            path: 'M 700,350 C 850,300 950,350 1000,500 C 1050,650 950,850 850,900 C 750,950 600,800 650,650 C 700,500 550,400 700,350 Z'
+        },
+        shamei: { 
+            name: '莎梅群島', watermark1: 'SHAMEI', watermark2: 'ISLANDS',
+            path: 'M 700,150 C 850,100 950,200 850,300 C 750,350 650,250 700,150 Z M 650,380 C 850,320 1000,450 950,650 C 900,800 650,750 600,550 C 550,400 650,380 650,380 Z M 720,800 C 850,750 950,850 900,980 C 800,1100 650,1000 720,800 Z'
+        },
+        maha: { 
+            name: '瑪哈島', watermark1: 'MAHA', watermark2: 'ISLAND',
+            path: 'M 450,100 C 750,50 850,200 750,350 C 700,450 800,450 950,450 C 1150,450 1200,550 1150,750 C 1050,900 750,850 550,800 C 400,750 400,600 450,500 C 500,400 350,200 450,100 Z'
+        }
     };
 
-    // 遊戲資料
+    // 整合完整世界觀設定與魔物、NPC戰力的資料庫
     const gameData = {
         locations:[
-            { region: 'mainland', id: 'elysia', name: '聖都艾莉西亞', type: 'town', pos: { x: 1300, y: 950 }, zone: '東南 - 奧蘭多王國', desc: '奧蘭多王國首都。宗教與騎士文化盛行。', landmarks: '亞里亞德大教堂、葛拉倫學院、銀徽騎士團營區', npcs: `<div>👑 艾琳娜‧維多利亞 (女皇/人族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 精明變通 | 武器: 烈日尖槍</span></div><div>🕊️ 艾莉雅 (神官長/人族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 嚴肅溫柔 | 備註: 非戰鬥人員</span></div><div>🛡️ 亞黛兒 (銀徽騎士團長/人族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 高冷 | 武器: 冰霞劍與泰格爾盾</span></div>`, mobs: '無' },
-            { region: 'mainland', id: 'baibo', name: '白波鎮', type: 'town', pos: { x: 1050, y: 1100 }, zone: '南方 - 奧蘭多沿海', desc: '奧蘭多南方港都。', landmarks: '金沙灣 (裸體度假海灘)', npcs: '無', mobs: '無' },
-            { region: 'mainland', id: 'hilomel', name: '希洛梅爾', type: 'town', pos: { x: 300, y: 1000 }, zone: '西南 - 精靈領', desc: '依傍肯特湖的精靈族領地。', landmarks: '木朵市集、森林浴場', npcs: `<div>🏹 拉赫洛芙 (女王/精靈族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 敏銳優雅 | 武器: 風靈長弓</span></div>`, mobs: '無' },
-            { region: 'mainland', id: 'northborn', name: '自由城諾斯本', type: 'town', pos: { x: 800, y: 650 }, zone: '中部 - 斯潘德家族', desc: '大陸商貿中心，多族混雜。', landmarks: '弗格冒險聯盟總部、凱末廣場 (年度嘉年華會場地)', npcs: `<div>🥊 卡露兒 (聯盟會長/虎耳族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 勇敢健談 | 武器: 破陣拳刃</span></div><div>🔫 薇拉 (聯盟副會長/狐耳族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 冷靜沉著 | 武器: 銀閃雙槍</span></div>`, mobs: '無' },
-            { region: 'mainland', id: 'yaoshi', name: '曜石鎮', type: 'town', pos: { x: 250, y: 600 }, zone: '西部 - 礦山區', desc: '圍繞礦坑發展的矮人城鎮。', landmarks: '利布礦坑', npcs: `<div>🪓 凱伊特 (探險隊長/矮人族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 熱心善良 | 武器: 開拓者之斧</span></div>`, mobs: '無' },
-            { region: 'mainland', id: 'guta', name: '古塔村', type: 'town', pos: { x: 300, y: 250 }, zone: '西北 - 險要山脈', desc: '龍族溫泉村，盛產玉翠茶。', landmarks: '密勒卡庭園 (龍族休息處)', npcs: `<div>🐉 薩爾加羅妲 (守護龍/龍族)<br><span class="text-purple-700 font-bold text-[10px] ml-4">戰力: 比肩史詩級 | 屬性: 風系守護龍</span></div>`, mobs: '無' },
-            { region: 'mainland', id: 'batiga', name: '巴提加', type: 'town', pos: { x: 1350, y: 250 }, zone: '東北 - 拉貝恩聯邦', desc: '獸耳族聯邦首都，熱情自由奔放。', landmarks: '派達競技場、勇士聖殿、勇士巡邏隊', npcs: `<div>🔨 卡爾曼 (國王/熊耳族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 豪邁自信 | 武器: 獵魂戰錘</span></div><div>📜 達芙妮 (王輔佐官/犬耳族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 理性耐心 | 備註: 非戰鬥人員</span></div>`, mobs: '無' },
-            { region: 'mainland', id: 'windho', name: '風禾村', type: 'town', pos: { x: 1150, y: 380 }, zone: '東北 - 拉貝恩聯邦', desc: '狐耳族村莊。', landmarks: '露營區、娜塔莉的麵包坊 (人氣狐尾麵包)', npcs: '無', mobs: '無' },
-            { region: 'mainland', id: 'greenfield', name: '綠茵鎮', type: 'town', pos: { x: 1350, y: 450 }, zone: '東北 - 拉貝恩聯邦', desc: '牛耳族小鎮。', landmarks: '青翠公園', npcs: '無', mobs: '無' },
-            { region: 'mainland', id: 'yuhui', name: '餘暉平原', type: 'wild', pos: { x: 1100, y: 950 }, zone: '初級狩獵區', desc: '聖都西郊。', landmarks: '無', npcs: '無', mobs: '滾滾豬、史萊姆' },
-            { region: 'mainland', id: 'lakeforest', name: '湖光森林', type: 'wild', pos: { x: 400, y: 950 }, zone: '初級狩獵區', desc: '希洛梅爾外圍。', landmarks: '無', npcs: '無', mobs: '虹光蝶、史萊姆' },
-            { region: 'mainland', id: 'belen', name: '貝倫溪谷', type: 'wild', pos: { x: 1450, y: 450 }, zone: '中級狩獵區', desc: '綠茵鎮東郊。', landmarks: '無', npcs: '無', mobs: '緞帶熊' },
-            { region: 'mainland', id: 'desert', name: '日盡沙漠', type: 'wild', pos: { x: 100, y: 600 }, zone: '中級狩獵區', desc: '曜石鎮西郊。', landmarks: '無', npcs: '無', mobs: '暴躁仙人掌' },
-            { region: 'mainland', id: 'pofeng', name: '破風獵場', type: 'wild', pos: { x: 180, y: 180 }, zone: '中級狩獵區', desc: '古塔村西北郊。', landmarks: '無', npcs: '無', mobs: '風牙龍' },
-            { region: 'mainland', id: 'snowfield', name: '冰瀑雪域', type: 'wild', pos: { x: 1350, y: 120 }, zone: '上級狩獵區', desc: '巴提加北方。', landmarks: '無', npcs: '無', mobs: '寒霜哥布林' },
-            { region: 'mainland', id: 'cloudgap', name: '雲迷峽谷', type: 'wild', pos: { x: 650, y: 450 }, zone: '上級狩獵區', desc: '諾斯本西北方。', landmarks: '無', npcs: '無', mobs: '漂浮晶石像、石破豬' },
-            { region: 'mainland', id: 'sinde', name: '辛德地下城', type: 'dungeon', pos: { x: 300, y: 380 }, zone: '特殊副本區', desc: '位於古塔村南方。', landmarks: '無', npcs: '無', mobs: '封印石像、詛咒妖靈' },
-            { region: 'mainland', id: 'temple', name: '殘破寺院', type: 'dungeon', pos: { x: 600, y: 350 }, zone: '特殊副本區', desc: '雲迷峽谷深處。', landmarks: '無', npcs: '無', mobs: '<span class="text-red-600 font-black">【首領】</span>腥紅暴食者 ‧ 格薩丁' },
-            { region: 'mainland', id: 'chaosroad', name: '焚毀的無盡之路', type: 'dungeon', pos: { x: 500, y: 400 }, zone: '極秘史詩副本', desc: '古塔村東南方，魔物戰爭古戰場。', landmarks: '古代封印陣', npcs: '無', mobs: '<span class="text-purple-700 font-black text-[12px]">【史詩魔物】混沌之翼 (封印中)</span>' },
+            // ================= 歐羅亞大陸 (Mainland) =================
+            { region: 'mainland', id: 'elysia', name: '聖都艾莉西亞', type: 'town', pos: { x: 1300, y: 950 }, zone: '東南 - 奧蘭多王國', 
+              desc: '奧蘭多王國的首都。宗教與騎士文化盛行。', 
+              landmarks: '亞里亞德大教堂、葛拉倫學院、銀徽騎士團營區', 
+              npcs: `<div>👑 艾琳娜‧維多利亞 (女皇/人族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 精明變通 | 武器: 烈日尖槍</span></div>
+                     <div>🕊️ 艾莉雅 (神官長/人族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 嚴肅溫柔 | 備註: 非戰鬥人員</span></div>
+                     <div>🛡️ 亞黛兒 (銀徽騎士團長/人族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 高冷 | 武器: 冰霞劍與泰格爾盾</span></div>`, 
+              mobs: '無' },
+              
+            { region: 'mainland', id: 'baibo', name: '白波鎮', type: 'town', pos: { x: 1050, y: 1100 }, zone: '南方 - 奧蘭多沿海', 
+              desc: '奧蘭多南方的港口觀光城鎮，氣候宜人。', landmarks: '金沙灣 (裸體度假海灘)', npcs: '無', mobs: '無' },
+              
+            { region: 'mainland', id: 'hilomel', name: '希洛梅爾', type: 'town', pos: { x: 300, y: 1000 }, zone: '西南 - 精靈領', 
+              desc: '依傍肯特湖建立的精靈族主要領地。', landmarks: '木朵市集、森林浴場', 
+              npcs: `<div>🏹 拉赫洛芙 (女王/精靈族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 敏銳優雅 | 武器: 風靈長弓</span></div>`, mobs: '無' },
+              
+            { region: 'mainland', id: 'northborn', name: '自由城諾斯本', type: 'town', pos: { x: 800, y: 650 }, zone: '中部 - 斯潘德家族', 
+              desc: '大陸商貿中心，由兔耳族斯潘德家族管理且多族混雜。', landmarks: '弗格冒險聯盟總部、凱末廣場 (年度嘉年華會場地)', 
+              npcs: `<div>🥊 卡露兒 (冒險聯盟會長/虎耳族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 勇敢健談 | 武器: 破陣拳刃</span></div>
+                     <div>🔫 薇拉 (冒險聯盟副會長/狐耳族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 冷靜沉著 | 武器: 銀閃雙槍</span></div>`, mobs: '無' },
+                     
+            { region: 'mainland', id: 'yaoshi', name: '曜石鎮', type: 'town', pos: { x: 250, y: 600 }, zone: '西部 - 礦山區', 
+              desc: '圍繞礦坑發展的矮人重鎮，善於製造魔道具。', landmarks: '利布礦坑', 
+              npcs: `<div>🪓 凱伊特 (荷比探險隊長/矮人族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 熱心善良 | 武器: 開拓者之斧</span></div>`, mobs: '無' },
+              
+            { region: 'mainland', id: 'guta', name: '古塔村', type: 'town', pos: { x: 300, y: 250 }, zone: '西北 - 險要山脈', 
+              desc: '龍族後裔活動的溫泉村，盛產玉翠茶。', landmarks: '密勒卡庭園 (龍族休息處)', 
+              npcs: `<div>🐉 薩爾加羅妲 (守護龍/龍族)<br><span class="text-purple-700 font-bold text-[10px] ml-4">個性: 母性嚴厲 | 戰力: 比肩史詩級</span></div>`, mobs: '無' },
+              
+            { region: 'mainland', id: 'batiga', name: '巴提加', type: 'town', pos: { x: 1350, y: 250 }, zone: '東北 - 拉貝恩聯邦', 
+              desc: '獸耳族聯邦拉貝恩的首都。民風熱情且自由奔放。', landmarks: '派達競技場、勇士聖殿、勇士巡邏隊', 
+              npcs: `<div>🔨 卡爾曼 (國王/熊耳族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 豪邁自信 | 武器: 獵魂戰錘</span></div>
+                     <div>📜 達芙妮 (王輔佐官/犬耳族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 理性耐心 | 備註: 非戰鬥人員</span></div>`, mobs: '無' },
+                     
+            { region: 'mainland', id: 'windho', name: '風禾村', type: 'town', pos: { x: 1150, y: 380 }, zone: '東北 - 拉貝恩聯邦', 
+              desc: '巴提加西南方狐耳族村莊。', landmarks: '露營區、娜塔莉的麵包坊 (招牌：狐尾麵包)', npcs: '無', mobs: '無' },
+              
+            { region: 'mainland', id: 'greenfield', name: '綠茵鎮', type: 'town', pos: { x: 1350, y: 450 }, zone: '東北 - 拉貝恩聯邦', 
+              desc: '巴提加南方牛耳族小鎮。', landmarks: '青翠公園 (當地名勝)', npcs: '無', mobs: '無' },
+            
+            // 野外
+            { region: 'mainland', id: 'yuhui', name: '餘暉平原', type: 'wild', pos: { x: 1100, y: 950 }, zone: '初級狩獵區', 
+              desc: '聖都艾莉西亞西郊的平緩草地。', landmarks: '無', npcs: '無', mobs: '滾滾豬、史萊姆' },
+            { region: 'mainland', id: 'lakeforest', name: '湖光森林', type: 'wild', pos: { x: 400, y: 950 }, zone: '初級狩獵區', 
+              desc: '環繞希洛梅爾外圍的魔素森林。', landmarks: '無', npcs: '無', mobs: '虹光蝶、史萊姆' },
+            { region: 'mainland', id: 'belen', name: '貝倫溪谷', type: 'wild', pos: { x: 1450, y: 450 }, zone: '中級狩獵區', 
+              desc: '綠茵鎮東郊，流水湍急。', landmarks: '無', npcs: '無', mobs: '緞帶熊' },
+            { region: 'mainland', id: 'desert', name: '日盡沙漠', type: 'wild', pos: { x: 100, y: 600 }, zone: '中級狩獵區', 
+              desc: '曜石鎮西郊，氣候極端炎熱。', landmarks: '無', npcs: '無', mobs: '暴躁仙人掌' },
+            { region: 'mainland', id: 'pofeng', name: '破風獵場', type: 'wild', pos: { x: 180, y: 180 }, zone: '中級狩獵區', 
+              desc: '古塔村西北郊的危險獵場。', landmarks: '無', npcs: '無', mobs: '風牙龍' },
+            { region: 'mainland', id: 'snowfield', name: '冰瀑雪域', type: 'wild', pos: { x: 1350, y: 120 }, zone: '上級狩獵區', 
+              desc: '巴提加北方的極寒地帶。', landmarks: '無', npcs: '無', mobs: '寒霜哥布林' },
+            { region: 'mainland', id: 'cloudgap', name: '雲迷峽谷', type: 'wild', pos: { x: 650, y: 450 }, zone: '上級狩獵區', 
+              desc: '諾斯本西北方，長年大霧瀰漫的危險峽谷。', landmarks: '無', npcs: '無', mobs: '漂浮晶石像、石破豬' },
+            
+            // 副本
+            { region: 'mainland', id: 'sinde', name: '辛德地下城', type: 'dungeon', pos: { x: 300, y: 380 }, zone: '特殊副本區', 
+              desc: '位於古塔村南方的地下遺跡。', landmarks: '無', npcs: '無', mobs: '封印石像、詛咒妖靈' },
+            { region: 'mainland', id: 'temple', name: '殘破寺院', type: 'dungeon', pos: { x: 600, y: 350 }, zone: '特殊副本區', 
+              desc: '隱藏在雲迷峽谷深處的祭壇。', landmarks: '無', npcs: '無', mobs: '<span class="text-red-600 font-black">【首領】</span>腥紅暴食者 ‧ 格薩丁' },
+            { region: 'mainland', id: 'chaosroad', name: '焚毀的無盡之路', type: 'dungeon', pos: { x: 500, y: 400 }, zone: '極秘史詩副本', 
+              desc: '古塔村東南方。這裡是魔物戰爭的古戰場。', landmarks: '古代封印陣', npcs: '無', 
+              mobs: '<span class="text-purple-700 font-black text-[12px]">【史詩魔物】混沌之翼 (封印中)</span>' },
 
-            { region: 'sali', id: 'lude', name: '盧德村', type: 'town', pos: { x: 800, y: 500 }, zone: '薩利島', desc: '漁村，與碧星海賊團共生。', landmarks: '潮風市集', npcs: `<div>⚓ 露希塔 (海賊團長/人族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 自信直爽 | 武器: 萊特左輪+征服者彎刀</span></div>`, mobs: '無' },
-            { region: 'sali', id: 'windglass', name: '風璃丘陵', type: 'wild', pos: { x: 800, y: 700 }, zone: '初級狩獵區', desc: '薩利島中部。', landmarks: '無', npcs: '無', mobs: '峰鳥' },
+            // ================= 薩利島 (Sali) =================
+            { region: 'sali', id: 'lude', name: '盧德村', type: 'town', pos: { x: 800, y: 500 }, zone: '薩利島', 
+              desc: '民風淳樸的漁村，與碧星海賊團簽訂了互助協議共生。', landmarks: '潮風市集', 
+              npcs: `<div>⚓ 露希塔 (碧星海賊團長/人族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 自信直爽 | 武器: 萊特左輪+征服者彎刀</span></div>`, mobs: '無' },
+            { region: 'sali', id: 'windglass', name: '風璃丘陵', type: 'wild', pos: { x: 800, y: 700 }, zone: '初級狩獵區', 
+              desc: '薩利島中部的丘陵地帶。', landmarks: '無', npcs: '無', mobs: '峰鳥' },
+            
+            // ================= 莎梅群島 (Shamei) =================
+            { region: 'shamei', id: 'harasha', name: '哈勒沙', type: 'town', pos: { x: 750, y: 350 }, zone: '莎梅群島', 
+              desc: '魅魔族統治的熱帶島國，音樂與藝術文化發達。', landmarks: '喬卡蒂音樂沙龍、蘿莎莉亞製藥所', 
+              npcs: `<div>🔮 阿嘉莎 (女王/魅魔族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 撫媚神秘 | 武器: 虛影鞭</span></div>`, mobs: '無' },
+            { region: 'shamei', id: 'pearlcoast', name: '珍珠海岸', type: 'wild', pos: { x: 750, y: 200 }, zone: '初級狩獵區', 
+              desc: '哈勒沙北岸的美麗白沙灘。', landmarks: '無', npcs: '無', mobs: '三甲蟹' },
+            { region: 'shamei', id: 'twilight', name: '暮色沼澤', type: 'wild', pos: { x: 850, y: 900 }, zone: '中級狩獵區', 
+              desc: '位於莎梅南島的毒氣沼澤。', landmarks: '無', npcs: '無', mobs: '暗影哥布林、毒藤' },
+            { region: 'shamei', id: 'illusionforest', name: '幻惑秘林', type: 'dungeon', pos: { x: 800, y: 150 }, zone: '特殊副本區', 
+              desc: '莎梅北島深處的迷幻森林。', landmarks: '無', npcs: '無', mobs: '<span class="text-red-600 font-black">【首領】</span>星蝕刻印 ‧ 海德菈' },
 
-            { region: 'shamei', id: 'harasha', name: '哈勒沙', type: 'town', pos: { x: 750, y: 350 }, zone: '莎梅群島', desc: '魅魔族熱帶島國，藝術發達。', landmarks: '喬卡蒂音樂沙龍、蘿莎莉亞製藥所', npcs: `<div>🔮 阿嘉莎 (女王/魅魔族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 撫媚神秘 | 武器: 虛影鞭</span></div>`, mobs: '無' },
-            { region: 'shamei', id: 'pearlcoast', name: '珍珠海岸', type: 'wild', pos: { x: 750, y: 200 }, zone: '初級狩獵區', desc: '哈勒沙北岸。', landmarks: '無', npcs: '無', mobs: '三甲蟹' },
-            { region: 'shamei', id: 'twilight', name: '暮色沼澤', type: 'wild', pos: { x: 850, y: 900 }, zone: '中級狩獵區', desc: '莎梅的南島。', landmarks: '無', npcs: '無', mobs: '暗影哥布林、毒藤' },
-            { region: 'shamei', id: 'illusionforest', name: '幻惑秘林', type: 'dungeon', pos: { x: 800, y: 150 }, zone: '特殊副本區', desc: '莎梅北島深處。', landmarks: '無', npcs: '無', mobs: '<span class="text-red-600 font-black">【首領】</span>星蝕刻印 ‧ 海德菈' },
-
-            { region: 'maha', id: 'kaliba', name: '卡利巴', type: 'town', pos: { x: 700, y: 600 }, zone: '瑪哈島', desc: '魔族溫卡爾帝國首都，商業繁榮。', landmarks: '戴菈的研究所、傭兵介紹所', npcs: `<div>⚔️ 利希巴德 (魔王/魔族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 沉穩霸氣 | 武器: 黑曜魔劍</span></div>`, mobs: '無' },
-            { region: 'maha', id: 'redroad', name: '紅蓮山道', type: 'wild', pos: { x: 700, y: 400 }, zone: '中級狩獵區', desc: '卡利巴北郊。', landmarks: '無', npcs: '無', mobs: '赤骨龍' },
-            { region: 'maha', id: 'kasan', name: '卡桑高地', type: 'wild', pos: { x: 1000, y: 600 }, zone: '上級狩獵區', desc: '卡利巴東方。', landmarks: '無', npcs: '無', mobs: '高地哥布林' },
-            { region: 'maha', id: 'jushi', name: '巨石荒原', type: 'wild', pos: { x: 550, y: 700 }, zone: '上級狩獵區', desc: '卡利巴西南方。', landmarks: '無', npcs: '無', mobs: '骸鳥' },
-            { region: 'maha', id: 'redmt', name: '赤焰山', type: 'wild', pos: { x: 700, y: 200 }, zone: '上級狩獵區', desc: '紅蓮山道北峰。', landmarks: '無', npcs: '無', mobs: '火浮輪' },
-            { region: 'maha', id: 'stonegate', name: '尖石禁地', type: 'dungeon', pos: { x: 1080, y: 650 }, zone: '特殊副本區', desc: '卡桑高地深處。', landmarks: '無', npcs: '無', mobs: '<span class="text-red-600 font-black">【首領】</span>崩石巨魔 ‧ 凱伊加德' }
+            // ================= 瑪哈島 (Maha) =================
+            { region: 'maha', id: 'kaliba', name: '卡利巴', type: 'town', pos: { x: 700, y: 600 }, zone: '瑪哈島', 
+              desc: '魔族溫卡爾帝國首都，商業異常繁榮。', landmarks: '溫卡爾王城、戴菈的研究所、傭兵介紹所', 
+              npcs: `<div>⚔️ 利希巴德 (魔王/魔族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 沉穩霸氣 | 武器: 黑曜魔劍</span></div>`, mobs: '無' },
+            { region: 'maha', id: 'redroad', name: '紅蓮山道', type: 'wild', pos: { x: 700, y: 400 }, zone: '中級狩獵區', 
+              desc: '卡利巴北郊的高溫山路。', landmarks: '無', npcs: '無', mobs: '赤骨龍' },
+            { region: 'maha', id: 'kasan', name: '卡桑高地', type: 'wild', pos: { x: 1000, y: 600 }, zone: '上級狩獵區', 
+              desc: '卡利巴東方。曾發生劇烈魔素紊亂。', landmarks: '無', npcs: '無', mobs: '高地哥布林' },
+            { region: 'maha', id: 'jushi', name: '巨石荒原', type: 'wild', pos: { x: 550, y: 700 }, zone: '上級狩獵區', 
+              desc: '卡利巴西南方的荒蕪岩地。', landmarks: '無', npcs: '無', mobs: '骸鳥' },
+            { region: 'maha', id: 'redmt', name: '赤焰山', type: 'wild', pos: { x: 700, y: 200 }, zone: '上級狩獵區', 
+              desc: '紅蓮山道北峰的活火山。', landmarks: '無', npcs: '無', mobs: '火浮輪' },
+            { region: 'maha', id: 'stonegate', name: '尖石禁地', type: 'dungeon', pos: { x: 1080, y: 650 }, zone: '特殊副本區', 
+              desc: '卡桑高地深處，岩石魔物盤據的禁區。', landmarks: '無', npcs: '無', mobs: '<span class="text-red-600 font-black">【首領】</span>崩石巨魔 ‧ 凱伊加德' }
         ]
     };
 
-    const weatherTextMap = {
-        'sunny': '☀️ 晴朗', 'cloudy': '☁️ 陰天', 'rain': '🌧️ 雨天', 'storm': '⛈️ 暴風雨',
-        'snow': '❄️ 下雪', 'blizzard': '🌨️ 暴風雪', 'sandstorm': '🌪️ 沙塵暴', 'turbulence': '✨ 魔素紊亂'
-    };
-    const periodTextMap = { 'morning': '🌅 早晨', 'afternoon': '☀️ 下午', 'night': '🌙 夜晚', 'dawn': '🌌 凌晨' };
-
     let state = {
-        currentRegion: 'mainland', zoom: 0.65, offsetX: 0, offsetY: 0, isDragging: false, lastMousePos: { x: 0, y: 0 },
-        sim: { period: 'morning', weather: 'sunny', timeStr: '08:00', curLoc: null }
+        currentRegion: 'mainland', zoom: 0.65, offsetX: 0, offsetY: 0, isDragging: false, lastMousePos: { x: 0, y: 0 }
     };
 
     window.onload = () => {
         lucide.createIcons();
         initSVGRegion('mainland');
         setupEvents();
-        updateWeatherDropdowns(); // 初始化天氣選單
-        applySimState(); // 初始化狀態
-        setInterval(() => { applySimState(true); }, 10000); // 定時器僅在"自動"選項下運作
+        
+        // 啟動時間模擬器
+        setInterval(syncAutoTime, 10000);
+        syncAutoTime();
+
         applyFilter();
         resetMap();
     };
@@ -368,12 +488,16 @@
     function switchRegion(regionId) {
         if(state.currentRegion === regionId) return;
         state.currentRegion = regionId;
+        
         document.querySelectorAll('.region-btn').forEach(b => b.classList.remove('active'));
         document.querySelector(`.region-btn[data-region="${regionId}"]`).classList.add('active');
+        
         initSVGRegion(regionId);
+        
         document.getElementById('locationSelect').value = '';
         document.getElementById('searchInput').value = '';
         document.getElementById('infoBox').classList.add('hidden');
+        
         applyFilter();
         resetMap();
     }
@@ -381,18 +505,22 @@
     function applyFilter() {
         const category = document.getElementById('mapCategory').value;
         const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        
         const filtered = gameData.locations.filter(loc => {
             return loc.region === state.currentRegion && 
                    (category === 'all' || loc.type === category) &&
                    (loc.name.includes(searchTerm) || loc.desc.includes(searchTerm) || loc.npcs.includes(searchTerm) || loc.mobs.includes(searchTerm));
         });
+
         const select = document.getElementById('locationSelect');
         select.innerHTML = '<option value="">-- 在地圖上點擊，或於此選擇 --</option>';
         filtered.forEach(loc => {
-            const opt = document.createElement('option'); opt.value = loc.id;
+            const opt = document.createElement('option');
+            opt.value = loc.id;
             opt.textContent = `${loc.type === 'town' ? '🏠' : loc.type === 'wild' ? '🌲' : '💀'} ${loc.name}`;
             select.appendChild(opt);
         });
+
         renderMarkers(filtered);
     }
 
@@ -403,7 +531,9 @@
         locations.forEach(loc => {
             const marker = document.createElement('div');
             marker.className = `map-marker ${loc.id === currentSelectedId ? 'marker-active' : ''}`;
-            marker.setAttribute('data-id', loc.id); marker.style.left = `${loc.pos.x}px`; marker.style.top = `${loc.pos.y}px`;
+            marker.setAttribute('data-id', loc.id);
+            marker.style.left = `${loc.pos.x}px`;
+            marker.style.top = `${loc.pos.y}px`;
             const typeClass = loc.type === 'town' ? 'icon-town' : loc.type === 'wild' ? 'icon-wild' : 'icon-dungeon';
             marker.innerHTML = `<div class="marker-label">${loc.name}</div><div class="marker-icon ${typeClass}"></div>`;
             marker.onclick = (e) => { e.stopPropagation(); selectLocation(loc.id); };
@@ -422,12 +552,12 @@
         document.getElementById('infoNPCs').innerHTML = loc.npcs;
         document.getElementById('infoMobs').innerHTML = loc.mobs;
         document.getElementById('locationSelect').value = id;
+        
         document.querySelectorAll('.map-marker').forEach(m => m.classList.remove('marker-active'));
         document.querySelector(`.map-marker[data-id="${id}"]`).classList.add('marker-active');
         focusOn(loc.pos.x, loc.pos.y, 1.5, true);
-        
-        state.sim.curLoc = loc;
-        updateWeatherDropdowns();
+
+        updateSimulationUI(loc);
     }
 
     function focusOn(x, y, targetZoom, smooth = false) {
@@ -446,146 +576,52 @@
     }
 
     function resetMap() {
-        state.zoom = 0.65; state.offsetX = 0; state.offsetY = 0;
+        state.zoom = 0.65;
+        state.offsetX = 0; state.offsetY = 0;
         document.getElementById('zoomRange').value = state.zoom;
         updateTransform(true);
         document.getElementById('infoBox').classList.add('hidden');
         document.getElementById('locationSelect').value = '';
         document.querySelectorAll('.map-marker').forEach(m => m.classList.remove('marker-active'));
-        
-        state.sim.curLoc = null;
-        updateWeatherDropdowns();
+        updateSimulationUI(null);
     }
 
-    // 取得該地點允許的氣候邏輯
-    function getAllowedWeathers(loc) {
-        if(!loc) return Object.keys(weatherTextMap); // 全域允許所有天氣
-        
-        let allowed = ['sunny', 'cloudy']; // 基礎天氣
-        const id = loc.id;
-        
-        if (id === 'desert') {
-            allowed.push('sandstorm', 'turbulence');
-        } else if (['snowfield', 'batiga', 'windho', 'greenfield'].includes(id)) {
-            allowed.push('snow', 'blizzard', 'rain', 'storm'); // 北方可下雪
-        } else if (['redmt', 'redroad', 'kaliba', 'kasan', 'stonegate'].includes(id)) {
-            allowed.push('storm', 'turbulence'); // 瑪哈島/火山 無雪無沙
-        } else if (id === 'jushi') {
-            allowed.push('sandstorm', 'storm', 'turbulence'); // 荒原可沙塵暴
-        } else if (id === 'chaosroad') {
-            allowed.push('turbulence', 'storm');
-        } else {
-            allowed.push('rain', 'storm', 'turbulence'); // 一般氣候
-        }
-        return allowed;
-    }
-
-    function updateWeatherDropdowns() {
-        const allowed = getAllowedWeathers(state.sim.curLoc);
-        const sel = document.getElementById('simWeather');
-        const prevVal = sel.value || 'auto';
-        
-        sel.innerHTML = '<option value="auto">🔄 動態地理氣候 (自動)</option>';
-        allowed.forEach(w => {
-            const opt = document.createElement('option');
-            opt.value = w; opt.textContent = weatherTextMap[w];
-            sel.appendChild(opt);
-        });
-
-        // 檢查前次設定是否依然合法，否則強制回歸自動
-        if (prevVal === 'auto' || allowed.includes(prevVal)) {
-            sel.value = prevVal;
-        } else {
-            sel.value = 'auto';
-        }
-        applySimState();
-    }
-
-    // 環境狀態更新邏輯
-    function applySimState(isTimerTick = false) {
-        const pSel = document.getElementById('simPeriod').value;
-        const wSel = document.getElementById('simWeather').value;
+    // 自動環境模擬功能
+    function syncAutoTime() {
         const now = new Date();
-
-        // 1. 時間處理
-        if (pSel === 'auto') {
-            state.sim.timeStr = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
-            const h = now.getHours();
-            if (h >= 6 && h < 12) state.sim.period = 'morning';
-            else if (h >= 12 && h < 18) state.sim.period = 'afternoon';
-            else if (h >= 18 && h <= 23) state.sim.period = 'night';
-            else state.sim.period = 'dawn';
-        } else {
-            const periodTimes = { 'morning': '09:00', 'afternoon': '14:30', 'night': '21:00', 'dawn': '03:00' };
-            state.sim.period = pSel;
-            state.sim.timeStr = periodTimes[pSel];
-        }
-
-        // 2. 天氣處理
-        const allowed = getAllowedWeathers(state.sim.curLoc);
-        if (wSel === 'auto') {
-            // 如果是定時器觸發，給予小機率切換天氣 (模擬自然變化)
-            if (!state.sim.weather || !allowed.includes(state.sim.weather) || (isTimerTick && Math.random() > 0.95)) {
-                state.sim.weather = allowed[Math.floor(Math.random() * allowed.length)];
-            }
-        } else {
-            state.sim.weather = wSel;
-        }
-
-        updateSimulationUI();
+        const timeStr = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
+        document.getElementById('dispTime').textContent = timeStr;
     }
 
-    function updateSimulationUI() {
-        document.getElementById('dispTime').textContent = state.sim.timeStr;
-        document.getElementById('dispPeriodText').textContent = periodTextMap[state.sim.period].replace(/[^早中晚晨夜下午星]+/, '').trim();
-        document.getElementById('dispWeatherText').textContent = weatherTextMap[state.sim.weather].split(' ')[1];
-
-        const loc = state.sim.curLoc;
-        const w = state.sim.weather;
-        const p = state.sim.period;
-
-        let act = "各地依照自然規律運作中。";
-        let react = "平民：『願英雄莉希妲護佑我們。』";
-
+    function updateSimulationUI(loc) {
         if(!loc) {
             document.getElementById('dispLocation').textContent = regionConfig[state.currentRegion].name + "全境";
-        } else {
-            document.getElementById('dispLocation').textContent = loc.name;
-            
-            // 根據選定天氣與時段生成動態文本
-            if(loc.type === 'town') {
-                if(w === 'storm') { act = "狂風暴雨肆虐，城鎮街道積水嚴重。"; react = "商販：『快把外面的貨物搬進室內！』"; }
-                else if(w === 'blizzard') { act = "暴風雪掩蓋了視線，氣溫驟降。"; react = "守衛：『躲回室內，注意保暖！』"; }
-                else if(w === 'snow') { act = "天空飄下細雪，城鎮屋頂覆蓋了一層銀白。"; react = "居民：『看來今年會是個豐收年呢。』"; }
-                else if(w === 'sandstorm') { act = "漫天黃沙吹襲城鎮。"; react = "居民門窗緊閉，防止沙塵侵入。"; }
-                else if(w === 'turbulence') { act = "魔素紊亂引發天空異象，城防結界亮起防護光芒。"; react = "平民：『女神庇佑我們...』"; }
-                else if(p === 'night' || p === 'dawn') { act = "多數居民已經入睡，僅剩酒館與巡邏隊。"; react = "城鎮點起守夜的火光。"; }
-                else { act = "商販與冒險者穿梭，城鎮守衛正在巡視。"; react = "商隊正準備出發前往下個城鎮。"; }
-            } else if(loc.type === 'wild') {
-                if(w === 'storm') { act = "狂風驟雨讓狩獵極度困難，魔物顯得狂躁。"; react = "冒險者：『這種天氣不適合推進，撤退！』"; }
-                else if(w === 'blizzard') { act = "極寒的暴風雪讓冒險者寸步難行。"; react = "冒險者：『積雪深厚，隨時可能遭遇魔物襲擊。』"; }
-                else if(w === 'snow') { act = "雪地上的足跡變得非常明顯。"; react = "獵人：『這是追蹤魔物的好機會。』"; }
-                else if(w === 'sandstorm') { act = "沙塵暴掩蓋了魔物的行蹤，極易遭到伏擊。"; react = "冒險者：『大家背靠背，注意聽周遭聲音！』"; }
-                else if(w === 'turbulence') { act = "野生魔物受狂暴魔素影響，進入狂化狀態！"; react = "冒險者：『小心！牠們的力量變強了！』"; }
-                else if(p === 'night' || p === 'dawn') { act = "夜行性魔物出沒頻繁，區域危險度大幅上升。"; react = "冒險者們生起營火，輪流守夜。"; }
-                else { act = "野生魔物正在四處遊蕩，空氣中飄散著野獸的氣息。"; react = "冒險者們正在小心收集素材。"; }
-            } else if(loc.type === 'dungeon') {
-                if(w === 'turbulence') { act = "副本內的史詩魔素受到共鳴，處於極度不穩定的狂暴狀態！"; react = "聯盟發布最高級別警告！禁止入內！"; }
-                else if(loc.id === 'chaosroad') { act = "空間中殘留著史詩級的狂暴魔素，古代封印陣隱隱閃爍。"; react = "封印陣深處傳來令人毛骨悚然的低語..."; }
-                else { act = "外界的天氣變化對地下/副本影響有限，但入口處的魔力波動依然危險。"; react = "所有人注意陣型，準備迎戰首領！"; }
-            }
+            document.getElementById('dispActivity').textContent = "各地依照自然規律運作中。";
+            document.getElementById('dispReaction').textContent = "願英雄莉希妲護佑我們。";
+            return;
         }
+
+        document.getElementById('dispLocation').textContent = loc.name;
         
-        document.getElementById('dispActivity').textContent = act;
-        document.getElementById('dispReaction').textContent = react;
+        if(loc.id === 'chaosroad') {
+            document.getElementById('dispActivity').textContent = "空間中殘留著史詩級的狂暴魔素，古代封印陣隱隱閃爍。";
+            document.getElementById('dispReaction').textContent = "封印陣深處傳來令人毛骨悚然的低語...";
+        } else if(loc.id === 'kasan' || loc.id === 'stonegate') {
+            document.getElementById('dispActivity').textContent = "此處曾是「渾沌之翼」的誕生地，至今魔素仍高於其他區域。";
+            document.getElementById('dispReaction').textContent = "遠處的高地哥布林發出警戒的嚎叫。";
+        } else if (loc.type === 'town') {
+            document.getElementById('dispActivity').textContent = "商販與冒險者穿梭，城鎮守衛正在巡視。";
+            document.getElementById('dispReaction').textContent = "願英雄莉希妲護佑我們。";
+        } else if (loc.type === 'wild') {
+            document.getElementById('dispActivity').textContent = "野生魔物正在四處遊蕩，空氣中飄散著野獸的氣息。";
+            document.getElementById('dispReaction').textContent = "冒險者們正在小心收集素材。";
+        } else {
+            document.getElementById('dispActivity').textContent = "副本入口散發出危險的魔力波動。";
+            document.getElementById('dispReaction').textContent = "所有人注意陣型，準備迎戰首領！";
+        }
     }
 
     function setupEvents() {
-        // UI Events
-        document.getElementById('simPeriod').onchange = () => applySimState();
-        document.getElementById('simWeather').onchange = () => applySimState();
-
-        // Viewport Drag Events
         const vp = document.getElementById('map-viewport');
         vp.onmousedown = (e) => { state.isDragging = true; state.lastMousePos = { x: e.clientX, y: e.clientY }; };
         window.onmousemove = (e) => {
@@ -619,7 +655,6 @@
             }
         };
 
-        // Other Bindings
         document.querySelectorAll('.region-btn').forEach(btn => btn.onclick = (e) => switchRegion(e.target.getAttribute('data-region')));
         document.getElementById('mapCategory').onchange = applyFilter;
         document.getElementById('searchInput').oninput = applyFilter;
