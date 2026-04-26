@@ -416,8 +416,6 @@
               desc: '位於古塔村南方的地下遺跡。', landmarks: '無', npcs: '無', mobs: '封印石像、詛咒妖靈' },
             { region: 'mainland', id: 'temple', name: '殘破寺院', type: 'dungeon', pos: { x: 600, y: 350 }, zone: '特殊副本區', 
               desc: '隱藏在雲迷峽谷深處的祭壇。', landmarks: '無', npcs: '無', mobs: '<span class="text-red-600 font-black">【首領】</span>腥紅暴食者 ‧ 格薩丁' },
-            { region: 'mainland', id: 'stonegate', name: '尖石禁地', type: 'dungeon', pos: { x: 100, y: 450 }, zone: '特殊副本區', 
-              desc: '巨石荒原深處，岩石魔物盤據的禁區。', landmarks: '無', npcs: '無', mobs: '<span class="text-red-600 font-black">【首領】</span>崩石巨魔 ‧ 凱伊加德' },
             { region: 'mainland', id: 'chaosroad', name: '焚毀的無盡之路', type: 'dungeon', pos: { x: 500, y: 400 }, zone: '極秘史詩副本', 
               desc: '古塔村東南方。這裡是魔物戰爭的古戰場。', landmarks: '古代封印陣', npcs: '無', 
               mobs: '<span class="text-purple-700 font-black text-[12px]">【史詩魔物】混沌之翼 (封印中)</span>' },
@@ -449,7 +447,11 @@
             { region: 'maha', id: 'kasan', name: '卡桑高地', type: 'wild', pos: { x: 1000, y: 600 }, zone: '上級狩獵區', 
               desc: '卡利巴東方。曾發生劇烈魔素紊亂。', landmarks: '無', npcs: '無', mobs: '高地哥布林' },
             { region: 'maha', id: 'redmt', name: '赤焰山', type: 'wild', pos: { x: 700, y: 200 }, zone: '上級狩獵區', 
-              desc: '紅蓮山道北峰的活火山。', landmarks: '無', npcs: '無', mobs: '火浮輪' }
+              desc: '紅蓮山道北峰的活火山。', landmarks: '無', npcs: '無', mobs: '火浮輪' },
+              
+            // 將「尖石禁地」移動至瑪哈島區域的卡桑高地附近
+            { region: 'maha', id: 'stonegate', name: '尖石禁地', type: 'dungeon', pos: { x: 1080, y: 650 }, zone: '特殊副本區', 
+              desc: '位於卡桑高地附近，岩石魔物盤據的禁區。', landmarks: '無', npcs: '無', mobs: '<span class="text-red-600 font-black">【首領】</span>崩石巨魔 ‧ 凱伊加德' }
         ]
     };
 
@@ -604,7 +606,7 @@
         if(loc.id === 'chaosroad') {
             document.getElementById('dispActivity').textContent = "空間中殘留著史詩級的狂暴魔素，古代封印陣隱隱閃爍。";
             document.getElementById('dispReaction').textContent = "封印陣深處傳來令人毛骨悚然的低語...";
-        } else if(loc.id === 'kasan') {
+        } else if(loc.id === 'kasan' || loc.id === 'stonegate') {
             document.getElementById('dispActivity').textContent = "此處曾是「渾沌之翼」的誕生地，至今魔素仍高於其他區域。";
             document.getElementById('dispReaction').textContent = "遠處的高地哥布林發出警戒的嚎叫。";
         } else if (loc.type === 'town') {
