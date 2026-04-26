@@ -48,6 +48,7 @@
             position: relative;
         }
 
+        /* 自訂滾動條 */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #8d6e63; border-radius: 4px; }
@@ -76,9 +77,7 @@
         .icon-dungeon { clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background: #ef4444; }
 
         .map-marker:hover .marker-icon { box-shadow: 0 0 10px gold; }
-        .map-marker.marker-active .marker-icon {
-            box-shadow: 0 0 20px 8px rgba(255, 215, 0, 0.8); border-color: #ffeb3b;
-        }
+        .map-marker.marker-active .marker-icon { box-shadow: 0 0 20px 8px rgba(255, 215, 0, 0.8); border-color: #ffeb3b; }
 
         .marker-label {
             position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(8px);
@@ -99,8 +98,6 @@
         }
         .region-btn.active { background: var(--border-brown); color: var(--parchment); box-shadow: 0 0 12px rgba(197, 160, 89, 0.8); transform: translateY(-2px); }
         .region-btn:hover:not(.active) { background: rgba(197, 160, 89, 0.4); }
-        
-        select:disabled { opacity: 0.6; cursor: not-allowed; background-color: #e0e0e0; }
 
         @media (max-width: 768px) {
             body { overflow-y: auto; height: auto; }
@@ -139,7 +136,7 @@
                     <i data-lucide="search" class="absolute left-2.5 top-2 w-4 h-4 opacity-60"></i>
                 </div>
                 <div class="flex items-center gap-2">
-                    <select id="mapCategory" class="flex-1 bg-white/70 border border-[#5d4037] rounded p-1 text-xs font-bold text-[#5d4037]">
+                    <select id="mapCategory" class="flex-1 bg-white/70 border border-[#5d4037] rounded p-1 text-xs font-bold text-[#5d4037] cursor-pointer">
                         <option value="all">全部分類</option>
                         <option value="town">城鎮與村莊 (安全)</option>
                         <option value="wild">野外探索區 (狩獵)</option>
@@ -176,26 +173,28 @@
                 </div>
             </div>
 
-            <!-- 即時環境模擬系統 (新增下拉選單) -->
+            <!-- 即時環境模擬系統 -->
             <div class="rpg-card mb-4 border-[#c5a059] bg-[#fdfaf2]">
                 <h4 class="font-bold mb-2 flex items-center gap-2 text-sm text-[#5d4037] border-b border-[#5d4037]/20 pb-1">
                     <i data-lucide="sun-moon" class="w-4 h-4"></i> 動態區域環境監測
                 </h4>
                 
+                <!-- 獨立的下拉選單區塊 -->
                 <div class="space-y-2 mb-2 bg-[#5d4037]/5 p-2 rounded border border-[#5d4037]/20">
-                    <select id="simMode" class="w-full text-[11px] bg-white border border-[#5d4037] p-1.5 rounded font-bold text-[#5d4037] cursor-pointer">
-                        <option value="auto">🕒 自動同步環境 (系統時間/隨機氣候)</option>
-                        <option value="manual">⚙️ 手動覆寫環境 (自訂設定)</option>
-                    </select>
-                    <div class="flex gap-2">
-                        <select id="simPeriod" disabled class="flex-1 text-[11px] bg-white border border-[#5d4037] p-1 rounded font-bold text-[#3e2723]">
-                            <option value="morning">🌅 早晨</option>
-                            <option value="afternoon">☀️ 下午</option>
-                            <option value="night">🌙 夜晚</option>
-                            <option value="dawn">🌌 凌晨</option>
+                    <div class="flex items-center gap-2">
+                        <label class="text-xs font-bold text-[#5d4037] whitespace-nowrap w-8">時段</label>
+                        <select id="simPeriod" class="flex-1 text-[11px] bg-white border border-[#5d4037] p-1.5 rounded font-bold text-[#3e2723] cursor-pointer shadow-sm">
+                            <option value="auto">🕒 系統時間同步 (自動)</option>
+                            <option value="morning">🌅 早晨 (06:00 - 11:59)</option>
+                            <option value="afternoon">☀️ 下午 (12:00 - 17:59)</option>
+                            <option value="night">🌙 夜晚 (18:00 - 23:59)</option>
+                            <option value="dawn">🌌 凌晨 (00:00 - 05:59)</option>
                         </select>
-                        <select id="simWeather" disabled class="flex-1 text-[11px] bg-white border border-[#5d4037] p-1 rounded font-bold text-[#3e2723]">
-                            <!-- 動態填入 -->
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <label class="text-xs font-bold text-[#5d4037] whitespace-nowrap w-8">天氣</label>
+                        <select id="simWeather" class="flex-1 text-[11px] bg-white border border-[#5d4037] p-1.5 rounded font-bold text-[#3e2723] cursor-pointer shadow-sm">
+                            <!-- JS 動態填入合法天氣 -->
                         </select>
                     </div>
                 </div>
@@ -331,24 +330,24 @@
         ]
     };
 
-    // 天氣對應表
     const weatherTextMap = {
         'sunny': '☀️ 晴朗', 'cloudy': '☁️ 陰天', 'rain': '🌧️ 雨天', 'storm': '⛈️ 暴風雨',
         'snow': '❄️ 下雪', 'blizzard': '🌨️ 暴風雪', 'sandstorm': '🌪️ 沙塵暴', 'turbulence': '✨ 魔素紊亂'
     };
-
     const periodTextMap = { 'morning': '🌅 早晨', 'afternoon': '☀️ 下午', 'night': '🌙 夜晚', 'dawn': '🌌 凌晨' };
 
     let state = {
         currentRegion: 'mainland', zoom: 0.65, offsetX: 0, offsetY: 0, isDragging: false, lastMousePos: { x: 0, y: 0 },
-        sim: { mode: 'auto', period: 'morning', weather: 'sunny', timeStr: '08:00', curLoc: null }
+        sim: { period: 'morning', weather: 'sunny', timeStr: '08:00', curLoc: null }
     };
 
     window.onload = () => {
         lucide.createIcons();
         initSVGRegion('mainland');
         setupEvents();
-        setupSimulation();
+        updateWeatherDropdowns(); // 初始化天氣選單
+        applySimState(); // 初始化狀態
+        setInterval(() => { applySimState(true); }, 10000); // 定時器僅在"自動"選項下運作
         applyFilter();
         resetMap();
     };
@@ -458,37 +457,19 @@
         updateWeatherDropdowns();
     }
 
-    // --- 動態環境模擬系統 ---
-    function setupSimulation() {
-        document.getElementById('simMode').onchange = (e) => {
-            state.sim.mode = e.target.value;
-            const isManual = state.sim.mode === 'manual';
-            document.getElementById('simPeriod').disabled = !isManual;
-            document.getElementById('simWeather').disabled = !isManual;
-            
-            if(isManual) applyManualSim();
-            else syncAutoTime();
-        };
-        
-        document.getElementById('simPeriod').onchange = (e) => { state.sim.period = e.target.value; applyManualSim(); };
-        document.getElementById('simWeather').onchange = (e) => { state.sim.weather = e.target.value; applyManualSim(); };
-        
-        setInterval(() => { if(state.sim.mode === 'auto') syncAutoTime(); }, 10000);
-    }
-
-    // 取得該地點允許的天氣陣列
+    // 取得該地點允許的氣候邏輯
     function getAllowedWeathers(loc) {
         if(!loc) return Object.keys(weatherTextMap); // 全域允許所有天氣
         
-        let allowed = ['sunny', 'cloudy']; // 基本天氣
+        let allowed = ['sunny', 'cloudy']; // 基礎天氣
         const id = loc.id;
         
         if (id === 'desert') {
             allowed.push('sandstorm', 'turbulence');
         } else if (['snowfield', 'batiga', 'windho', 'greenfield'].includes(id)) {
-            allowed.push('snow', 'blizzard', 'rain', 'storm'); // 北方區域可下雪
+            allowed.push('snow', 'blizzard', 'rain', 'storm'); // 北方可下雪
         } else if (['redmt', 'redroad', 'kaliba', 'kasan', 'stonegate'].includes(id)) {
-            allowed.push('storm', 'turbulence'); // 火山/熱區無雪
+            allowed.push('storm', 'turbulence'); // 瑪哈島/火山 無雪無沙
         } else if (id === 'jushi') {
             allowed.push('sandstorm', 'storm', 'turbulence'); // 荒原可沙塵暴
         } else if (id === 'chaosroad') {
@@ -502,88 +483,94 @@
     function updateWeatherDropdowns() {
         const allowed = getAllowedWeathers(state.sim.curLoc);
         const sel = document.getElementById('simWeather');
-        const prevVal = sel.value || state.sim.weather;
+        const prevVal = sel.value || 'auto';
         
-        sel.innerHTML = '';
+        sel.innerHTML = '<option value="auto">🔄 動態地理氣候 (自動)</option>';
         allowed.forEach(w => {
             const opt = document.createElement('option');
             opt.value = w; opt.textContent = weatherTextMap[w];
             sel.appendChild(opt);
         });
 
-        // 如果目前天氣不在允許範圍內，強制切回預設(晴朗)
-        if(allowed.includes(prevVal)) {
-            sel.value = prevVal; state.sim.weather = prevVal;
+        // 檢查前次設定是否依然合法，否則強制回歸自動
+        if (prevVal === 'auto' || allowed.includes(prevVal)) {
+            sel.value = prevVal;
         } else {
-            sel.value = allowed[0]; state.sim.weather = allowed[0];
+            sel.value = 'auto';
         }
-
-        if(state.sim.mode === 'auto') syncAutoTime(); // 重算文本
-        else updateSimulationUI();
+        applySimState();
     }
 
-    function applyManualSim() {
-        const periods = { 'morning':'09:00', 'afternoon':'14:30', 'night':'21:00', 'dawn':'03:00' };
-        state.sim.timeStr = periods[state.sim.period];
-        updateSimulationUI();
-    }
-
-    function syncAutoTime() {
+    // 環境狀態更新邏輯
+    function applySimState(isTimerTick = false) {
+        const pSel = document.getElementById('simPeriod').value;
+        const wSel = document.getElementById('simWeather').value;
         const now = new Date();
-        state.sim.timeStr = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
-        const h = now.getHours();
-        
-        if (h >= 6 && h < 12) state.sim.period = 'morning';
-        else if (h >= 12 && h < 18) state.sim.period = 'afternoon';
-        else if (h >= 18 && h <= 23) state.sim.period = 'night';
-        else state.sim.period = 'dawn';
 
-        // 隨機切換天氣 (限制在允許名單內)
-        if(Math.random() > 0.9) {
-            const allowed = getAllowedWeathers(state.sim.curLoc);
-            state.sim.weather = allowed[Math.floor(Math.random() * allowed.length)];
+        // 1. 時間處理
+        if (pSel === 'auto') {
+            state.sim.timeStr = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
+            const h = now.getHours();
+            if (h >= 6 && h < 12) state.sim.period = 'morning';
+            else if (h >= 12 && h < 18) state.sim.period = 'afternoon';
+            else if (h >= 18 && h <= 23) state.sim.period = 'night';
+            else state.sim.period = 'dawn';
+        } else {
+            const periodTimes = { 'morning': '09:00', 'afternoon': '14:30', 'night': '21:00', 'dawn': '03:00' };
+            state.sim.period = pSel;
+            state.sim.timeStr = periodTimes[pSel];
         }
-        
-        document.getElementById('simPeriod').value = state.sim.period;
-        document.getElementById('simWeather').value = state.sim.weather;
-        
+
+        // 2. 天氣處理
+        const allowed = getAllowedWeathers(state.sim.curLoc);
+        if (wSel === 'auto') {
+            // 如果是定時器觸發，給予小機率切換天氣 (模擬自然變化)
+            if (!state.sim.weather || !allowed.includes(state.sim.weather) || (isTimerTick && Math.random() > 0.95)) {
+                state.sim.weather = allowed[Math.floor(Math.random() * allowed.length)];
+            }
+        } else {
+            state.sim.weather = wSel;
+        }
+
         updateSimulationUI();
     }
 
     function updateSimulationUI() {
         document.getElementById('dispTime').textContent = state.sim.timeStr;
-        document.getElementById('dispPeriodText').textContent = periodTextMap[state.sim.period];
-        document.getElementById('dispWeatherText').textContent = weatherTextMap[state.sim.weather];
+        document.getElementById('dispPeriodText').textContent = periodTextMap[state.sim.period].replace(/[^早中晚晨夜下午星]+/, '').trim();
+        document.getElementById('dispWeatherText').textContent = weatherTextMap[state.sim.weather].split(' ')[1];
 
         const loc = state.sim.curLoc;
         const w = state.sim.weather;
         const p = state.sim.period;
 
         let act = "各地依照自然規律運作中。";
-        let react = "願英雄莉希妲護佑我們。";
+        let react = "平民：『願英雄莉希妲護佑我們。』";
 
         if(!loc) {
             document.getElementById('dispLocation').textContent = regionConfig[state.currentRegion].name + "全境";
         } else {
             document.getElementById('dispLocation').textContent = loc.name;
             
-            // 地點類型動態生成文本
+            // 根據選定天氣與時段生成動態文本
             if(loc.type === 'town') {
-                if(w === 'storm') { act = "狂風暴雨肆虐，城鎮街道積水嚴重。"; react = "商販：『快把貨物搬進室內！』"; }
+                if(w === 'storm') { act = "狂風暴雨肆虐，城鎮街道積水嚴重。"; react = "商販：『快把外面的貨物搬進室內！』"; }
                 else if(w === 'blizzard') { act = "暴風雪掩蓋了視線，氣溫驟降。"; react = "守衛：『躲回室內，注意保暖！』"; }
+                else if(w === 'snow') { act = "天空飄下細雪，城鎮屋頂覆蓋了一層銀白。"; react = "居民：『看來今年會是個豐收年呢。』"; }
                 else if(w === 'sandstorm') { act = "漫天黃沙吹襲城鎮。"; react = "居民門窗緊閉，防止沙塵侵入。"; }
-                else if(w === 'turbulence') { act = "魔素紊亂引發天空異象，城防結界亮起。"; react = "平民：『女神庇佑我們...』"; }
+                else if(w === 'turbulence') { act = "魔素紊亂引發天空異象，城防結界亮起防護光芒。"; react = "平民：『女神庇佑我們...』"; }
                 else if(p === 'night' || p === 'dawn') { act = "多數居民已經入睡，僅剩酒館與巡邏隊。"; react = "城鎮點起守夜的火光。"; }
                 else { act = "商販與冒險者穿梭，城鎮守衛正在巡視。"; react = "商隊正準備出發前往下個城鎮。"; }
             } else if(loc.type === 'wild') {
                 if(w === 'storm') { act = "狂風驟雨讓狩獵極度困難，魔物顯得狂躁。"; react = "冒險者：『這種天氣不適合推進，撤退！』"; }
-                else if(w === 'blizzard') { act = "極寒的暴風雪讓冒險者寸步難行。"; react = "積雪深厚，隨時可能遭遇襲擊。"; }
-                else if(w === 'sandstorm') { act = "沙塵暴掩蓋了魔物的行蹤，極易遭到伏擊。"; react = "冒險者：『大家背靠背，注意聽聲音！』"; }
+                else if(w === 'blizzard') { act = "極寒的暴風雪讓冒險者寸步難行。"; react = "冒險者：『積雪深厚，隨時可能遭遇魔物襲擊。』"; }
+                else if(w === 'snow') { act = "雪地上的足跡變得非常明顯。"; react = "獵人：『這是追蹤魔物的好機會。』"; }
+                else if(w === 'sandstorm') { act = "沙塵暴掩蓋了魔物的行蹤，極易遭到伏擊。"; react = "冒險者：『大家背靠背，注意聽周遭聲音！』"; }
                 else if(w === 'turbulence') { act = "野生魔物受狂暴魔素影響，進入狂化狀態！"; react = "冒險者：『小心！牠們的力量變強了！』"; }
                 else if(p === 'night' || p === 'dawn') { act = "夜行性魔物出沒頻繁，區域危險度大幅上升。"; react = "冒險者們生起營火，輪流守夜。"; }
                 else { act = "野生魔物正在四處遊蕩，空氣中飄散著野獸的氣息。"; react = "冒險者們正在小心收集素材。"; }
             } else if(loc.type === 'dungeon') {
-                if(w === 'turbulence') { act = "副本內的史詩魔素受到共鳴，處於極度不穩定的狂暴狀態！"; react = "聯盟發布最高級別警告！"; }
+                if(w === 'turbulence') { act = "副本內的史詩魔素受到共鳴，處於極度不穩定的狂暴狀態！"; react = "聯盟發布最高級別警告！禁止入內！"; }
                 else if(loc.id === 'chaosroad') { act = "空間中殘留著史詩級的狂暴魔素，古代封印陣隱隱閃爍。"; react = "封印陣深處傳來令人毛骨悚然的低語..."; }
                 else { act = "外界的天氣變化對地下/副本影響有限，但入口處的魔力波動依然危險。"; react = "所有人注意陣型，準備迎戰首領！"; }
             }
@@ -594,6 +581,11 @@
     }
 
     function setupEvents() {
+        // UI Events
+        document.getElementById('simPeriod').onchange = () => applySimState();
+        document.getElementById('simWeather').onchange = () => applySimState();
+
+        // Viewport Drag Events
         const vp = document.getElementById('map-viewport');
         vp.onmousedown = (e) => { state.isDragging = true; state.lastMousePos = { x: e.clientX, y: e.clientY }; };
         window.onmousemove = (e) => {
@@ -627,6 +619,7 @@
             }
         };
 
+        // Other Bindings
         document.querySelectorAll('.region-btn').forEach(btn => btn.onclick = (e) => switchRegion(e.target.getAttribute('data-region')));
         document.getElementById('mapCategory').onchange = applyFilter;
         document.getElementById('searchInput').oninput = applyFilter;
