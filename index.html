@@ -179,9 +179,12 @@
                 <h4 class="font-bold mb-2 flex items-center gap-2 text-sm text-[#5d4037] border-b border-[#5d4037]/20 pb-1">
                     <i data-lucide="book-open" class="w-4 h-4"></i> 紀元歷史簡述
                 </h4>
-                <p class="text-[11px] leading-relaxed text-[#4e342e] text-justify">
-                    <strong>天恩曆320年</strong>，卡桑高地的魔素劇烈紊亂，生成了智慧史詩魔物<span class="text-red-700 font-bold">「渾沌之翼」</span>。牠控制了大部分魔物發動了慘烈的「魔物戰爭」。最終被女英雄<strong class="text-blue-800">莉希妲．維多利亞</strong>與各路夥伴擊敗，封印於焚毀的無盡之路。大陸得以迎來和平，並於330年由英雄莉希妲建立奧蘭多王國。
-                </p>
+                <div class="space-y-2 text-[11px] leading-relaxed text-[#4e342e] text-justify">
+                    <p><strong>天恩曆320年</strong>，卡桑高地的魔素劇烈紊亂，生成了智慧史詩魔物<span class="text-red-700 font-bold">「渾沌之翼」</span>。牠控制了大部分魔物發動了慘烈的「魔物戰爭」。最終被女英雄<strong class="text-blue-800">莉希妲．維多利亞</strong>與各路夥伴擊敗，封印於焚毀的無盡之路，並於330年建立奧蘭多王國。</p>
+                    <p class="border-t border-[#5d4037]/10 pt-1 text-[#8d6e63]">
+                        <strong class="text-[#5d4037]">⚔️ 戰力體系備註：</strong>各城鎮的主要NPC戰鬥人員（除艾莉雅、達芙妮等非戰鬥員）皆具備<strong class="text-red-700">比肩首領魔物</strong>的戰力。而守護龍「薩爾加羅妲」更具備<strong class="text-purple-700">比肩史詩級魔物</strong>的毀滅性力量。
+                    </p>
+                </div>
             </div>
 
             <!-- 搜尋與篩選 -->
@@ -212,17 +215,17 @@
                 <p id="infoZone" class="text-[10px] text-[#f4e4bc] mb-2 font-bold uppercase tracking-widest bg-[#5d4037] inline-block px-2 py-0.5 rounded shadow-inner"></p>
                 <p id="infoDesc" class="text-xs font-medium mb-3 leading-relaxed text-[#4e342e]">地點簡介...</p>
                 
-                <div class="text-[11px] space-y-2.5 border-t border-[#5d4037]/30 pt-3">
+                <div class="text-[11px] space-y-3 border-t border-[#5d4037]/30 pt-3">
                     <div>
                         <strong class="text-[#5d4037] flex items-center gap-1 mb-0.5"><i data-lucide="map-pin" class="w-3 h-3"></i> 著名地標：</strong> 
-                        <span id="infoLandmarks" class="text-[#6d4c41] block pl-4 leading-tight">無</span>
+                        <span id="infoLandmarks" class="text-[#6d4c41] block pl-4 leading-tight font-medium">無</span>
                     </div>
                     <div>
                         <strong class="text-blue-800 flex items-center gap-1 mb-0.5"><i data-lucide="users" class="w-3 h-3"></i> 駐守 / 知名 NPC：</strong> 
-                        <div id="infoNPCs" class="text-blue-900 font-bold block pl-4 space-y-1">無</div>
+                        <div id="infoNPCs" class="text-blue-900 font-bold block pl-4 space-y-1.5">無</div>
                     </div>
                     <div>
-                        <strong class="text-red-800 flex items-center gap-1 mb-0.5"><i data-lucide="skull" class="w-3 h-3"></i> 出現魔物 / 首領：</strong> 
+                        <strong class="text-red-800 flex items-center gap-1 mb-0.5"><i data-lucide="skull" class="w-3 h-3"></i> 常見出現魔物：</strong> 
                         <span id="infoMobs" class="text-red-700 font-bold block pl-4">無</span>
                     </div>
                 </div>
@@ -349,35 +352,48 @@
         }
     };
 
-    // 整合完整世界觀設定與魔物的資料庫
+    // 整合完整世界觀設定與魔物、NPC戰力的資料庫
     const gameData = {
         locations:[
             // ================= 歐羅亞大陸 (Mainland) =================
             { region: 'mainland', id: 'elysia', name: '聖都艾莉西亞', type: 'town', pos: { x: 1300, y: 950 }, zone: '東南 - 奧蘭多王國', 
-              desc: '奧蘭多王國的首都。天恩曆330年由英雄莉希妲建立，城內宗教與騎士文化盛行。', 
+              desc: '奧蘭多王國的首都。宗教與騎士文化盛行。', 
               landmarks: '亞里亞德大教堂、葛拉倫學院、銀徽騎士團營區', 
-              npcs: '👑 艾琳娜‧維多利亞 (女皇/人族/精明變通)<br>🛡️ 亞黛兒 (銀徽騎士團長/人族/高冷)<br>🕊️ 艾莉雅 (神官長/人族/嚴肅溫柔)', mobs: '無' },
+              npcs: `<div>👑 艾琳娜‧維多利亞 (女皇/人族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 精明變通 | 武器: 烈日尖槍</span></div>
+                     <div>🕊️ 艾莉雅 (神官長/人族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 嚴肅溫柔 | 備註: 非戰鬥人員</span></div>
+                     <div>🛡️ 亞黛兒 (銀徽騎士團長/人族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 高冷 | 武器: 冰霞劍與泰格爾盾</span></div>`, 
+              mobs: '無' },
+              
             { region: 'mainland', id: 'baibo', name: '白波鎮', type: 'town', pos: { x: 1050, y: 1100 }, zone: '南方 - 奧蘭多沿海', 
-              desc: '奧蘭多南方的港口觀光城鎮，氣候宜人。', landmarks: '金沙灣 (知名裸體度假海灘)', npcs: '無', mobs: '無' },
+              desc: '奧蘭多南方的港口觀光城鎮，氣候宜人。', landmarks: '金沙灣 (裸體度假海灘)', npcs: '無', mobs: '無' },
+              
             { region: 'mainland', id: 'hilomel', name: '希洛梅爾', type: 'town', pos: { x: 300, y: 1000 }, zone: '西南 - 精靈領', 
-              desc: '依傍肯特湖建立的精靈族主要領地，自然魔素充沛。', landmarks: '木朵市集、森林浴場', 
-              npcs: '👑 拉赫洛芙 (女王/精靈族/敏銳優雅/風靈長弓)', mobs: '無' },
+              desc: '依傍肯特湖建立的精靈族主要領地。', landmarks: '木朵市集、森林浴場', 
+              npcs: `<div>🏹 拉赫洛芙 (女王/精靈族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 敏銳優雅 | 武器: 風靈長弓</span></div>`, mobs: '無' },
+              
             { region: 'mainland', id: 'northborn', name: '自由城諾斯本', type: 'town', pos: { x: 800, y: 650 }, zone: '中部 - 斯潘德家族', 
-              desc: '大陸經貿中心，由兔耳族斯潘德家族管理，多族群混雜的繁榮中立城市。', landmarks: '凱末廣場 (年度嘉年華會場)、弗格冒險聯盟總部、瑪迦商會', 
-              npcs: '⚔️ 卡露兒 (冒險聯盟會長/虎耳族/勇敢健談)<br>🔫 薇拉 (副會長/狐耳族/冷靜沉著)', mobs: '無' },
+              desc: '大陸商貿中心，由兔耳族斯潘德家族管理，多族群混雜。', landmarks: '凱末廣場 (年度嘉年華會場)、弗格冒險聯盟總部、瑪迦商會', 
+              npcs: `<div>🥊 卡露兒 (冒險聯盟會長/虎耳族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 勇敢健談 | 武器: 破陣拳刃</span></div>
+                     <div>🔫 薇拉 (冒險聯盟副會長/狐耳族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 冷靜沉著 | 武器: 銀閃雙槍</span></div>`, mobs: '無' },
+                     
             { region: 'mainland', id: 'yaoshi', name: '曜石鎮', type: 'town', pos: { x: 250, y: 600 }, zone: '西部 - 礦山區', 
-              desc: '圍繞礦坑發展的矮人重鎮，當地工匠極度擅長製造魔道具。', landmarks: '利布礦坑', 
-              npcs: '🪓 凱伊特 (荷比探險隊長/矮人族/熱心善良/開拓者之斧)', mobs: '無' },
+              desc: '圍繞礦坑發展的矮人重鎮，善於製造魔道具。', landmarks: '利布礦坑', 
+              npcs: `<div>🪓 凱伊特 (荷比探險隊長/矮人族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 熱心善良 | 武器: 開拓者之斧</span></div>`, mobs: '無' },
+              
             { region: 'mainland', id: 'guta', name: '古塔村', type: 'town', pos: { x: 300, y: 250 }, zone: '西北 - 險要山脈', 
-              desc: '龍族後裔活動的溫泉村，盛產高級玉翠茶，由風系龍族親自守護。', landmarks: '密勒卡庭園 (龍族休息處)', 
-              npcs: '🐲 薩爾加羅妲 (守護龍/龍族/母性嚴厲/史詩戰力)', mobs: '無' },
+              desc: '龍族後裔活動的溫泉村，盛產玉翠茶。', landmarks: '密勒卡庭園 (龍族休息處)', 
+              npcs: `<div>🐉 薩爾加羅妲 (守護龍/龍族)<br><span class="text-purple-700 font-bold text-[10px] ml-4">個性: 母性嚴厲 | 戰力: 比肩史詩級</span></div>`, mobs: '無' },
+              
             { region: 'mainland', id: 'batiga', name: '巴提加', type: 'town', pos: { x: 1350, y: 250 }, zone: '東北 - 拉貝恩聯邦', 
-              desc: '獸耳族聯邦拉貝恩的首都。民風熱情且自由奔放，崇尚武力與榮耀。', landmarks: '派達競技場、勇士聖殿、勇士巡邏隊駐地', 
-              npcs: '👑 卡爾曼 (國王/熊耳族/豪邁自信/獵魂戰錘)<br>📜 達芙妮 (王輔佐官/犬耳族/理性耐心)', mobs: '無' },
+              desc: '獸耳族聯邦拉貝恩的首都。民風熱情且自由奔放。', landmarks: '派達競技場、勇士聖殿、勇士巡邏隊駐地', 
+              npcs: `<div>🔨 卡爾曼 (國王/熊耳族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 豪邁自信 | 武器: 獵魂戰錘</span></div>
+                     <div>📜 達芙妮 (王輔佐官/犬耳族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 理性耐心 | 備註: 非戰鬥人員</span></div>`, mobs: '無' },
+                     
             { region: 'mainland', id: 'windho', name: '風禾村', type: 'town', pos: { x: 1150, y: 380 }, zone: '東北 - 拉貝恩聯邦', 
-              desc: '位於巴提加西南方的狐耳族村莊。', landmarks: '露營區、娜塔莉的麵包坊 (招牌：狐尾麵包)', npcs: '無', mobs: '無' },
+              desc: '巴提加西南方狐耳族村莊。', landmarks: '露營區、娜塔莉的麵包坊 (招牌：狐尾麵包)', npcs: '無', mobs: '無' },
+              
             { region: 'mainland', id: 'greenfield', name: '綠茵鎮', type: 'town', pos: { x: 1350, y: 450 }, zone: '東北 - 拉貝恩聯邦', 
-              desc: '位於巴提加南方的牛耳族寧靜小鎮。', landmarks: '青翠公園 (當地名勝)', npcs: '無', mobs: '無' },
+              desc: '巴提加南方牛耳族小鎮。', landmarks: '青翠公園 (當地名勝)', npcs: '無', mobs: '無' },
             
             // 野外
             { region: 'mainland', id: 'yuhui', name: '餘暉平原', type: 'wild', pos: { x: 1100, y: 950 }, zone: '初級狩獵區', 
@@ -397,41 +413,41 @@
             
             // 副本
             { region: 'mainland', id: 'sinde', name: '辛德地下城', type: 'dungeon', pos: { x: 300, y: 380 }, zone: '特殊副本區', 
-              desc: '位於古塔村南方的地下遺跡，內部充滿怨氣。', landmarks: '無', npcs: '無', mobs: '封印石像、詛咒妖靈' },
+              desc: '位於古塔村南方的地下遺跡。', landmarks: '無', npcs: '無', mobs: '封印石像、詛咒妖靈' },
             { region: 'mainland', id: 'temple', name: '殘破寺院', type: 'dungeon', pos: { x: 600, y: 350 }, zone: '特殊副本區', 
-              desc: '隱藏在雲迷峽谷深處的邪教祭壇。', landmarks: '無', npcs: '無', mobs: '【首領】腥紅暴食者 ‧ 格薩丁' },
+              desc: '隱藏在雲迷峽谷深處的祭壇。', landmarks: '無', npcs: '無', mobs: '<span class="text-red-600 font-black">【首領】</span>腥紅暴食者 ‧ 格薩丁' },
             { region: 'mainland', id: 'stonegate', name: '尖石禁地', type: 'dungeon', pos: { x: 100, y: 450 }, zone: '特殊副本區', 
-              desc: '巨石荒原深處，岩石魔物盤據的禁區。', landmarks: '無', npcs: '無', mobs: '【首領】崩石巨魔 ‧ 凱伊加德' },
+              desc: '巨石荒原深處，岩石魔物盤據的禁區。', landmarks: '無', npcs: '無', mobs: '<span class="text-red-600 font-black">【首領】</span>崩石巨魔 ‧ 凱伊加德' },
             { region: 'mainland', id: 'chaosroad', name: '焚毀的無盡之路', type: 'dungeon', pos: { x: 500, y: 400 }, zone: '極秘史詩副本', 
-              desc: '古塔村東南方。這裡是魔物戰爭的古戰場，深處鎮壓著引發戰爭的元凶。', landmarks: '古代封印陣', npcs: '無', 
-              mobs: '【史詩魔物】混沌之翼 (封印中)' },
+              desc: '古塔村東南方。這裡是魔物戰爭的古戰場。', landmarks: '古代封印陣', npcs: '無', 
+              mobs: '<span class="text-purple-700 font-black text-[12px]">【史詩魔物】混沌之翼 (封印中)</span>' },
 
             // ================= 薩利島 (Sali) =================
             { region: 'sali', id: 'lude', name: '盧德村', type: 'town', pos: { x: 800, y: 500 }, zone: '薩利島', 
-              desc: '民風淳樸的漁村，與碧星海賊團簽訂了互助協議共生。', landmarks: '潮風市集 (商業中心)', 
-              npcs: '⚓ 露希塔 (碧星海賊團長/人族/自信直爽/萊特左輪+征服者彎刀)', mobs: '無' },
+              desc: '民風淳樸的漁村，與碧星海賊團簽訂了互助協議共生。', landmarks: '潮風市集', 
+              npcs: `<div>⚓ 露希塔 (碧星海賊團長/人族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 自信直爽 | 武器: 萊特左輪+征服者彎刀</span></div>`, mobs: '無' },
             { region: 'sali', id: 'windglass', name: '風璃丘陵', type: 'wild', pos: { x: 800, y: 700 }, zone: '初級狩獵區', 
-              desc: '薩利島中部的丘陵地帶，海風吹拂。', landmarks: '無', npcs: '無', mobs: '峰鳥' },
+              desc: '薩利島中部的丘陵地帶。', landmarks: '無', npcs: '無', mobs: '峰鳥' },
             
             // ================= 莎梅群島 (Shamei) =================
             { region: 'shamei', id: 'harasha', name: '哈勒沙', type: 'town', pos: { x: 750, y: 350 }, zone: '莎梅群島', 
-              desc: '魅魔族統治的熱帶島國，音樂與藝術文化極度發達。', landmarks: '喬卡蒂音樂沙龍、蘿莎莉亞製藥所', 
-              npcs: '👑 阿嘉莎 (女王/魅魔族/撫媚神秘/虛影鞭)', mobs: '無' },
+              desc: '魅魔族統治的熱帶島國，音樂與藝術文化發達。', landmarks: '喬卡蒂音樂沙龍、蘿莎莉亞製藥所', 
+              npcs: `<div>🔮 阿嘉莎 (女王/魅魔族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 撫媚神秘 | 武器: 虛影鞭</span></div>`, mobs: '無' },
             { region: 'shamei', id: 'pearlcoast', name: '珍珠海岸', type: 'wild', pos: { x: 750, y: 200 }, zone: '初級狩獵區', 
               desc: '哈勒沙北岸的美麗白沙灘。', landmarks: '無', npcs: '無', mobs: '三甲蟹' },
             { region: 'shamei', id: 'twilight', name: '暮色沼澤', type: 'wild', pos: { x: 850, y: 900 }, zone: '中級狩獵區', 
               desc: '位於莎梅南島的毒氣沼澤。', landmarks: '無', npcs: '無', mobs: '暗影哥布林、毒藤' },
             { region: 'shamei', id: 'illusionforest', name: '幻惑秘林', type: 'dungeon', pos: { x: 800, y: 150 }, zone: '特殊副本區', 
-              desc: '莎梅北島深處的迷幻森林。', landmarks: '無', npcs: '無', mobs: '【首領】星蝕刻印 ‧ 海德菈' },
+              desc: '莎梅北島深處的迷幻森林。', landmarks: '無', npcs: '無', mobs: '<span class="text-red-600 font-black">【首領】</span>星蝕刻印 ‧ 海德菈' },
 
             // ================= 瑪哈島 (Maha) =================
             { region: 'maha', id: 'kaliba', name: '卡利巴', type: 'town', pos: { x: 700, y: 600 }, zone: '瑪哈島', 
               desc: '魔族溫卡爾帝國首都，商業異常繁榮。', landmarks: '溫卡爾王城', 
-              npcs: '👑 利希巴德 (魔王/魔族/沉穩霸氣/黑曜魔劍)', mobs: '無' },
+              npcs: `<div>⚔️ 利希巴德 (魔王/魔族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 沉穩霸氣 | 武器: 黑曜魔劍</span></div>`, mobs: '無' },
             { region: 'maha', id: 'redroad', name: '紅蓮山道', type: 'wild', pos: { x: 700, y: 400 }, zone: '中級狩獵區', 
               desc: '卡利巴北郊的高溫山路。', landmarks: '無', npcs: '無', mobs: '赤骨龍' },
             { region: 'maha', id: 'kasan', name: '卡桑高地', type: 'wild', pos: { x: 1000, y: 600 }, zone: '上級狩獵區', 
-              desc: '卡利巴東方。此處曾發生劇烈魔素紊亂，是「混沌之翼」誕生的歷史之地。', landmarks: '無', npcs: '無', mobs: '高地哥布林' },
+              desc: '卡利巴東方。曾發生劇烈魔素紊亂。', landmarks: '無', npcs: '無', mobs: '高地哥布林' },
             { region: 'maha', id: 'redmt', name: '赤焰山', type: 'wild', pos: { x: 700, y: 200 }, zone: '上級狩獵區', 
               desc: '紅蓮山道北峰的活火山。', landmarks: '無', npcs: '無', mobs: '火浮輪' }
         ]
@@ -491,7 +507,7 @@
         const filtered = gameData.locations.filter(loc => {
             return loc.region === state.currentRegion && 
                    (category === 'all' || loc.type === category) &&
-                   (loc.name.includes(searchTerm) || loc.desc.includes(searchTerm) || loc.npcs.includes(searchTerm));
+                   (loc.name.includes(searchTerm) || loc.desc.includes(searchTerm) || loc.npcs.includes(searchTerm) || loc.mobs.includes(searchTerm));
         });
 
         const select = document.getElementById('locationSelect');
@@ -568,7 +584,7 @@
         updateSimulationUI(null);
     }
 
-    // 簡單的自動環境模擬功能
+    // 自動環境模擬功能
     function syncAutoTime() {
         const now = new Date();
         const timeStr = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
@@ -585,7 +601,6 @@
 
         document.getElementById('dispLocation').textContent = loc.name;
         
-        // 根據地點寫死一些有趣的Lore互動
         if(loc.id === 'chaosroad') {
             document.getElementById('dispActivity').textContent = "空間中殘留著史詩級的狂暴魔素，古代封印陣隱隱閃爍。";
             document.getElementById('dispReaction').textContent = "封印陣深處傳來令人毛骨悚然的低語...";
@@ -596,8 +611,8 @@
             document.getElementById('dispActivity').textContent = "商販與冒險者穿梭，城鎮守衛正在巡視。";
             document.getElementById('dispReaction').textContent = "願英雄莉希妲護佑我們。";
         } else if (loc.type === 'wild') {
-            document.getElementById('dispActivity').textContent = "野生魔物正在四處遊蕩。";
-            document.getElementById('dispReaction').textContent = "冒險者們正在收集素材。";
+            document.getElementById('dispActivity').textContent = "野生魔物正在四處遊蕩，空氣中飄散著野獸的氣息。";
+            document.getElementById('dispReaction').textContent = "冒險者們正在小心收集素材。";
         } else {
             document.getElementById('dispActivity').textContent = "副本入口散發出危險的魔力波動。";
             document.getElementById('dispReaction').textContent = "所有人注意陣型，準備迎戰首領！";
