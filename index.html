@@ -216,6 +216,39 @@
                 </div>
             </div>
 
+            <!-- 路程計算工具 -->
+            <div class="rpg-card mb-4 border-[#c5a059] bg-[#fdfaf2]">
+                <h4 class="font-bold mb-2 flex items-center gap-2 text-sm text-[#5d4037] border-b border-[#5d4037]/20 pb-1">
+                    <i data-lucide="map" class="w-4 h-4"></i> 行旅路程計算
+                </h4>
+                <div class="space-y-2 mb-2 bg-[#5d4037]/5 p-2 rounded border border-[#5d4037]/20">
+                    <div class="flex items-center gap-2">
+                        <label class="text-[11px] font-bold text-[#5d4037] whitespace-nowrap w-8">起點</label>
+                        <select id="calcStart" class="flex-1 text-[11px] bg-white border border-[#5d4037] p-1.5 rounded font-bold text-[#3e2723] cursor-pointer shadow-sm">
+                            <option value="">-- 選擇起點 --</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <label class="text-[11px] font-bold text-[#5d4037] whitespace-nowrap w-8">終點</label>
+                        <select id="calcEnd" class="flex-1 text-[11px] bg-white border border-[#5d4037] p-1.5 rounded font-bold text-[#3e2723] cursor-pointer shadow-sm">
+                            <option value="">-- 選擇終點 --</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center gap-2 border-t border-[#5d4037]/10 pt-2 mt-1">
+                        <label class="text-[11px] font-bold text-[#5d4037] whitespace-nowrap w-8">方式</label>
+                        <select id="calcMode" class="flex-1 text-[11px] bg-white border border-[#5d4037] p-1.5 rounded font-bold text-[#3e2723] cursor-pointer shadow-sm" disabled>
+                            <option value="">-- 請先選擇起終點 --</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="text-xs space-y-2 text-[#3e2723]">
+                    <div class="flex justify-between items-center bg-[#5d4037] text-[#f4e4bc] px-3 py-1.5 rounded shadow-inner">
+                        <span class="font-bold tracking-wider">耗時: <span id="calcDays" class="text-[#c5a059] text-sm ml-1 font-mono">-</span> 天</span>
+                        <span class="font-bold tracking-wider">支出: <span id="calcCost" class="text-[#c5a059] text-sm ml-1 font-mono">-</span> 羅亞</span>
+                    </div>
+                </div>
+            </div>
+
             <!-- 縮放控制 -->
             <div class="mt-auto pt-4 border-t border-[#5d4037]/20">
                 <div class="flex justify-between text-[10px] font-bold mb-1 text-[#5d4037]">
@@ -298,7 +331,7 @@
             { region: 'mainland', id: 'hilomel', name: '希洛梅爾', type: 'town', pos: { x: 300, y: 1000 }, zone: '西南 - 精靈領', desc: '依傍肯特湖的精靈族領地。', landmarks: '木朵市集、森林浴場', npcs: `<div>🏹 拉赫洛芙 (女王/精靈族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 敏銳優雅 | 武器: 風靈長弓</span></div>`, mobs: '無' },
             { region: 'mainland', id: 'northborn', name: '自由城諾斯本', type: 'town', pos: { x: 800, y: 650 }, zone: '中部 - 斯潘德家族', desc: '大陸商貿中心，多族混雜。', landmarks: '弗格冒險聯盟總部、凱末廣場 (年度嘉年華會場地)', npcs: `<div>🥊 卡露兒 (聯盟會長/虎耳族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 勇敢健談 | 武器: 破陣拳刃</span></div><div>🔫 薇拉 (聯盟副會長/狐耳族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 冷靜沉著 | 武器: 銀閃雙槍</span></div>`, mobs: '無' },
             { region: 'mainland', id: 'yaoshi', name: '曜石鎮', type: 'town', pos: { x: 250, y: 600 }, zone: '西部 - 礦山區', desc: '圍繞礦坑發展的矮人城鎮。', landmarks: '利布礦坑', npcs: `<div>🪓 凱伊特 (探險隊長/矮人族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 熱心善良 | 武器: 開拓者之斧</span></div>`, mobs: '無' },
-            { region: 'mainland', id: 'guta', name: '古塔村', type: 'town', pos: { x: 300, y: 250 }, zone: '西北 - 險要山脈', desc: '龍族溫泉村，盛產玉翠茶。', landmarks: '密勒卡庭園 (龍族休息處)', npcs: `<div>🐉 薩爾加羅妲 (守護龍/龍族)<br><span class="text-purple-700 font-bold text-[10px] ml-4">戰力: 比肩史詩級 | 屬性: 風系守護龍</span></div>`, mobs: '無' },
+            { region: 'mainland', id: 'guta', name: '古塔村', type: 'town', pos: { x: 300, y: 250 }, zone: '西北 - 險要山脈', desc: '龍族溫泉村，盛產玉翠茶。', landmarks: '密勒卡庭園 (龍族休息處)', npcs: `<div>🐉 薩爾加羅妲 (守護龍/龍族)<br><span class="text-purple-700 font-bold text-[10px] ml-4">戰力: 比肩史 মিলিটারি級 | 屬性: 風系守護龍</span></div>`, mobs: '無' },
             { region: 'mainland', id: 'batiga', name: '巴提加', type: 'town', pos: { x: 1350, y: 250 }, zone: '東北 - 拉貝恩聯邦', desc: '獸耳族聯邦首都，熱情自由奔放。', landmarks: '派達競技場、勇士聖殿、勇士巡邏隊', npcs: `<div>🔨 卡爾曼 (國王/熊耳族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 豪邁自信 | 武器: 獵魂戰錘</span></div><div>📜 達芙妮 (王輔佐官/犬耳族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 理性耐心 | 備註: 非戰鬥人員</span></div>`, mobs: '無' },
             { region: 'mainland', id: 'windho', name: '風禾村', type: 'town', pos: { x: 1150, y: 380 }, zone: '東北 - 拉貝恩聯邦', desc: '狐耳族村莊。', landmarks: '露營區、娜塔莉的麵包坊 (人氣狐尾麵包)', npcs: '無', mobs: '無' },
             { region: 'mainland', id: 'greenfield', name: '綠茵鎮', type: 'town', pos: { x: 1350, y: 450 }, zone: '東北 - 拉貝恩聯邦', desc: '牛耳族小鎮。', landmarks: '青翠公園', npcs: '無', mobs: '無' },
@@ -316,8 +349,9 @@
             { region: 'sali', id: 'lude', name: '盧德村', type: 'town', pos: { x: 800, y: 500 }, zone: '薩利島', desc: '漁村，與碧星海賊團共生。', landmarks: '潮風市集', npcs: `<div>⚓ 露希塔 (海賊團長/人族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 自信直爽 | 武器: 萊特左輪+征服者彎刀</span></div>`, mobs: '無' },
             { region: 'sali', id: 'windglass', name: '風璃丘陵', type: 'wild', pos: { x: 800, y: 700 }, zone: '初級狩獵區', desc: '薩利島中部。', landmarks: '無', npcs: '無', mobs: '峰鳥' },
 
-            { region: 'shamei', id: 'harasha', name: '哈勒沙', type: 'town', pos: { x: 750, y: 350 }, zone: '莎梅群島', desc: '魅魔族熱帶島國，藝術發達。', landmarks: '喬卡蒂音樂沙龍、蘿莎莉亞製藥所', npcs: `<div>🔮 阿嘉莎 (女王/魅魔族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 撫媚神秘 | 武器: 虛影鞭</span></div>`, mobs: '無' },
-            { region: 'shamei', id: 'pearlcoast', name: '珍珠海岸', type: 'wild', pos: { x: 750, y: 200 }, zone: '初級狩獵區', desc: '哈勒沙北岸。', landmarks: '無', npcs: '無', mobs: '三甲蟹' },
+            { region: 'shamei', id: 'harasha', name: '哈勒沙', type: 'town', pos: { x: 780, y: 550 }, zone: '莎梅群島', desc: '魅魔族熱帶島國，藝術發達。', landmarks: '喬卡蒂音樂沙龍、蘿莎莉亞製藥所', npcs: `<div>🔮 阿嘉莎 (女王/魅魔族)<br><span class="text-[#8d6e63] font-normal text-[10px] ml-4">個性: 撫媚神秘 | 武器: 虛影鞭</span></div>`, mobs: '無' },
+            // 修改此處：珍珠海岸 x: 750, y: 200 -> x: 630, y: 520 以置中島的西海岸
+            { region: 'shamei', id: 'pearlcoast', name: '珍珠海岸', type: 'wild', pos: { x: 630, y: 520 }, zone: '初級狩獵區', desc: '哈勒沙西岸。', landmarks: '無', npcs: '無', mobs: '三甲蟹' },
             { region: 'shamei', id: 'twilight', name: '暮色沼澤', type: 'wild', pos: { x: 850, y: 900 }, zone: '中級狩獵區', desc: '莎梅的南島。', landmarks: '無', npcs: '無', mobs: '暗影哥布林、毒藤' },
             { region: 'shamei', id: 'illusionforest', name: '幻惑秘林', type: 'dungeon', pos: { x: 800, y: 150 }, zone: '特殊副本區', desc: '莎梅北島深處。', landmarks: '無', npcs: '無', mobs: '<span class="text-red-600 font-black">【首領】</span>星蝕刻印 ‧ 海德菈' },
 
@@ -345,9 +379,10 @@
         lucide.createIcons();
         initSVGRegion('mainland');
         setupEvents();
-        updateWeatherDropdowns(); // 初始化天氣選單
-        applySimState(); // 初始化狀態
-        setInterval(() => { applySimState(true); }, 10000); // 定時器僅在"自動"選項下運作
+        updateWeatherDropdowns(); 
+        applySimState(); 
+        initCalcDropdowns(); // 初始化路線計算選單
+        setInterval(() => { applySimState(true); }, 10000); 
         applyFilter();
         resetMap();
     };
@@ -457,25 +492,25 @@
         updateWeatherDropdowns();
     }
 
-    // 取得該地點允許的氣候邏輯
+    // 環境狀態更新邏輯
     function getAllowedWeathers(loc) {
-        if(!loc) return Object.keys(weatherTextMap); // 全域允許所有天氣
+        if(!loc) return Object.keys(weatherTextMap); 
         
-        let allowed = ['sunny', 'cloudy']; // 基礎天氣
+        let allowed = ['sunny', 'cloudy']; 
         const id = loc.id;
         
         if (id === 'desert') {
             allowed.push('sandstorm', 'turbulence');
         } else if (['snowfield', 'batiga', 'windho', 'greenfield'].includes(id)) {
-            allowed.push('snow', 'blizzard', 'rain', 'storm'); // 北方可下雪
+            allowed.push('snow', 'blizzard', 'rain', 'storm');
         } else if (['redmt', 'redroad', 'kaliba', 'kasan', 'stonegate'].includes(id)) {
-            allowed.push('storm', 'turbulence'); // 瑪哈島/火山 無雪無沙
+            allowed.push('storm', 'turbulence'); 
         } else if (id === 'jushi') {
-            allowed.push('sandstorm', 'storm', 'turbulence'); // 荒原可沙塵暴
+            allowed.push('sandstorm', 'storm', 'turbulence'); 
         } else if (id === 'chaosroad') {
             allowed.push('turbulence', 'storm');
         } else {
-            allowed.push('rain', 'storm', 'turbulence'); // 一般氣候
+            allowed.push('rain', 'storm', 'turbulence'); 
         }
         return allowed;
     }
@@ -492,7 +527,6 @@
             sel.appendChild(opt);
         });
 
-        // 檢查前次設定是否依然合法，否則強制回歸自動
         if (prevVal === 'auto' || allowed.includes(prevVal)) {
             sel.value = prevVal;
         } else {
@@ -501,13 +535,11 @@
         applySimState();
     }
 
-    // 環境狀態更新邏輯
     function applySimState(isTimerTick = false) {
         const pSel = document.getElementById('simPeriod').value;
         const wSel = document.getElementById('simWeather').value;
         const now = new Date();
 
-        // 1. 時間處理
         if (pSel === 'auto') {
             state.sim.timeStr = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
             const h = now.getHours();
@@ -521,10 +553,8 @@
             state.sim.timeStr = periodTimes[pSel];
         }
 
-        // 2. 天氣處理
         const allowed = getAllowedWeathers(state.sim.curLoc);
         if (wSel === 'auto') {
-            // 如果是定時器觸發，給予小機率切換天氣 (模擬自然變化)
             if (!state.sim.weather || !allowed.includes(state.sim.weather) || (isTimerTick && Math.random() > 0.95)) {
                 state.sim.weather = allowed[Math.floor(Math.random() * allowed.length)];
             }
@@ -551,8 +581,6 @@
             document.getElementById('dispLocation').textContent = regionConfig[state.currentRegion].name + "全境";
         } else {
             document.getElementById('dispLocation').textContent = loc.name;
-            
-            // 根據選定天氣與時段生成動態文本
             if(loc.type === 'town') {
                 if(w === 'storm') { act = "狂風暴雨肆虐，城鎮街道積水嚴重。"; react = "商販：『快把外面的貨物搬進室內！』"; }
                 else if(w === 'blizzard') { act = "暴風雪掩蓋了視線，氣溫驟降。"; react = "守衛：『躲回室內，注意保暖！』"; }
@@ -580,12 +608,146 @@
         document.getElementById('dispReaction').textContent = react;
     }
 
+    // --- 路程計算工具核心邏輯 ---
+    function initCalcDropdowns() {
+        const startSel = document.getElementById('calcStart');
+        const endSel = document.getElementById('calcEnd');
+        
+        const regions = ['mainland', 'sali', 'shamei', 'maha'];
+        regions.forEach(reg => {
+            const optGroup1 = document.createElement('optgroup');
+            optGroup1.label = regionConfig[reg].name;
+            const optGroup2 = document.createElement('optgroup');
+            optGroup2.label = regionConfig[reg].name;
+            
+            gameData.locations.filter(l => l.region === reg).forEach(loc => {
+                const opt1 = document.createElement('option');
+                opt1.value = loc.id; opt1.textContent = loc.name;
+                optGroup1.appendChild(opt1);
+                
+                const opt2 = document.createElement('option');
+                opt2.value = loc.id; opt2.textContent = loc.name;
+                optGroup2.appendChild(opt2);
+            });
+            
+            startSel.appendChild(optGroup1);
+            endSel.appendChild(optGroup2);
+        });
+
+        startSel.addEventListener('change', updateCalcMode);
+        endSel.addEventListener('change', updateCalcMode);
+        document.getElementById('calcMode').addEventListener('change', calculateRoute);
+    }
+
+    function requiresSeaCrossing(loc1, loc2) {
+        if (loc1.region !== loc2.region) return true;
+        
+        // 莎梅群島特判（暮色沼澤位於南島，幻惑秘林位於北島，哈勒沙與珍珠海岸位於中島）
+        // 只要不是在同一個島，就判定為跨海
+        if (loc1.region === 'shamei') {
+            const getIslandId = (id) => {
+                if (id === 'twilight') return 'south';
+                if (id === 'illusionforest') return 'north';
+                return 'middle'; // harasha, pearlcoast
+            };
+            if (getIslandId(loc1.id) !== getIslandId(loc2.id)) return true;
+        }
+        return false;
+    }
+
+    function updateCalcMode() {
+        const startId = document.getElementById('calcStart').value;
+        const endId = document.getElementById('calcEnd').value;
+        const modeSel = document.getElementById('calcMode');
+        
+        if (!startId || !endId) {
+            modeSel.innerHTML = '<option value="">-- 請先選擇起終點 --</option>';
+            modeSel.disabled = true;
+            document.getElementById('calcDays').textContent = '-';
+            document.getElementById('calcCost').textContent = '-';
+            return;
+        }
+        
+        if (startId === endId) {
+            modeSel.innerHTML = '<option value="">-- 相同地點無需移動 --</option>';
+            modeSel.disabled = true;
+            document.getElementById('calcDays').textContent = '0';
+            document.getElementById('calcCost').textContent = '0';
+            return;
+        }
+        
+        const startLoc = gameData.locations.find(l => l.id === startId);
+        const endLoc = gameData.locations.find(l => l.id === endId);
+        
+        modeSel.disabled = false;
+        modeSel.innerHTML = ''; 
+        
+        if (requiresSeaCrossing(startLoc, endLoc)) {
+            const opt = document.createElement('option');
+            opt.value = 'ship'; opt.textContent = '⛵ 船隻 (渡海)';
+            modeSel.appendChild(opt);
+        } else {
+            const optWalk = document.createElement('option');
+            optWalk.value = 'walk'; optWalk.textContent = '🚶 徒步 (陸路)';
+            modeSel.appendChild(optWalk);
+            
+            const optCarriage = document.createElement('option');
+            optCarriage.value = 'carriage'; optCarriage.textContent = '🐴 柏金斯馬車 (陸路)';
+            modeSel.appendChild(optCarriage);
+        }
+        
+        calculateRoute();
+    }
+
+    function calculateRoute() {
+        const startId = document.getElementById('calcStart').value;
+        const endId = document.getElementById('calcEnd').value;
+        const mode = document.getElementById('calcMode').value;
+        
+        if (!startId || !endId || !mode) return;
+        
+        const startLoc = gameData.locations.find(l => l.id === startId);
+        const endLoc = gameData.locations.find(l => l.id === endId);
+        
+        // 取得距離基礎值 (歐式距離計算)
+        const dx = startLoc.pos.x - endLoc.pos.x;
+        const dy = startLoc.pos.y - endLoc.pos.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        let speed = 1, costPerDay = 0, baseCost = 0;
+        
+        if (mode === 'walk') {
+            speed = 35; // 每日腳程
+            costPerDay = 0; 
+            baseCost = 0;
+        } else if (mode === 'carriage') {
+            speed = 100; // 馬車速度較快
+            costPerDay = 15; // 司機伙食與馬匹耗損
+            baseCost = 20; // 叫車基底費
+        } else if (mode === 'ship') {
+            speed = 150; // 航行直線快速
+            costPerDay = 30; // 船資
+            baseCost = 50; // 登船手續費
+        }
+        
+        let days = distance / speed;
+        if (days < 0.2) days = 0.2; 
+        
+        // 無條件進位至小數點第一位
+        days = Math.ceil(days * 10) / 10;
+        
+        let totalCost = baseCost + Math.ceil(days * costPerDay);
+        if (mode === 'walk') totalCost = 0; 
+        
+        document.getElementById('calcDays').textContent = days.toFixed(1);
+        document.getElementById('calcCost').textContent = totalCost;
+    }
+    // --- 結束 ---
+
     function setupEvents() {
-        // UI Events
         document.getElementById('simPeriod').onchange = () => applySimState();
         document.getElementById('simWeather').onchange = () => applySimState();
 
-        // Viewport Drag Events
         const vp = document.getElementById('map-viewport');
         vp.onmousedown = (e) => { state.isDragging = true; state.lastMousePos = { x: e.clientX, y: e.clientY }; };
         window.onmousemove = (e) => {
@@ -619,7 +781,6 @@
             }
         };
 
-        // Other Bindings
         document.querySelectorAll('.region-btn').forEach(btn => btn.onclick = (e) => switchRegion(e.target.getAttribute('data-region')));
         document.getElementById('mapCategory').onchange = applyFilter;
         document.getElementById('searchInput').oninput = applyFilter;
